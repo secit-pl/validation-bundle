@@ -1,0 +1,30 @@
+{
+    "name": "secit-pl/validation-bundle",
+    "type": "symfony-bundle",
+    "description": "Additional Symfony validators.",
+    "keywords": ["symfony", "validator", "file", "file extension"],
+    "homepage": "http://secit.pl",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tomasz Gemza",
+            "email": "t.gemza@secit.pl"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.0",
+        "symfony/framework-bundle": "~4.0",
+        "symfony/dependency-injection": "~4.0",
+        "symfony/http-foundation": "~4.0",
+        "symfony/validator": "~4.0"
+    },
+    "autoload": {
+        "psr-4": { "SecIT\\ValidationBundle\\": "" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
+
