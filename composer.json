@@ -19,7 +19,8 @@
         "symfony/validator": "~4.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "@stable"
+        "phpunit/phpunit": "@stable",
+        "doctrine/orm": "^2.6"
     },
     "autoload": {
         "psr-4": { "SecIT\\ValidationBundle\\": "" }
@@ -30,4 +31,3 @@
         }
     }
 }
-
