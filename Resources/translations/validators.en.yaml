@@ -1,3 +1,5 @@
 'The extension of the file is invalid ({{ extension }}). Allowed extensions are {{ extensions }}.': 'The extension of the file is invalid ({{ extension }}). Allowed extensions are {{ extensions }}.'
 'The collection contains duplicated elements ({{ duplicates }})': 'The collection contains duplicated elements ({{ duplicates }})'
 'The value is not a valid collection': 'The value is not a valid collection'
+'XSS attack detected': 'XSS attack detected'
+'No HTML allowed': 'No HTML allowed'

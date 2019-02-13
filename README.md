@@ -76,3 +76,33 @@ use SecIT\ValidationBundle\Validator\Constraints as SecITAssert;
  */
  private $collection;
 ```
+
+### AntiXss
+
+Checks if text contains XSS attack using [voku\anti-xss](https://github.com/voku/anti-xss) library.
+
+```php
+use SecIT\ValidationBundle\Validator\Constraints as SecITAssert;
+
+// ...
+
+/**
+ * @SecITAssert\AntiXss()
+ */
+ private $text;
+```
+
+### NaiveNoHtml
+
+Perform very naive check if text contains HTML.
+
+```php
+use SecIT\ValidationBundle\Validator\Constraints as SecITAssert;
+
+// ...
+
+/**
+ * @SecITAssert\NaiveNoHtml()
+ */
+ private $text;
+```

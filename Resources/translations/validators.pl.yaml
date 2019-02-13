@@ -1,3 +1,5 @@
 'The extension of the file is invalid ({{ extension }}). Allowed extensions are {{ extensions }}.': 'Rozszerzenie pliku jest nieprawidłowe ({{ extension }}). Dozwolone rozszerzenia to {{ extensions }}.'
 'The collection contains duplicated elements ({{ duplicates }})': 'Kolekcja nie może zawierać powtórzonych elementów ({{ duplicates }})'
 'The value is not a valid collection': 'Podana wartość nie jest poprawną kolekcją elementów'
+'XSS attack detected': 'Wykryto atak XSS'
+'No HTML allowed': 'Wprowadzanie kodu HTML do tego pola nie jest dozwolone'
