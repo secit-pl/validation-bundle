@@ -2,7 +2,7 @@
     "name": "secit-pl/validation-bundle",
     "type": "symfony-bundle",
     "description": "Additional Symfony validators.",
-    "keywords": ["symfony", "validator", "file", "file extension"],
+    "keywords": ["symfony", "validator", "file", "file extension", "xss", "html"],
     "homepage": "http://secit.pl",
     "license": "MIT",
     "authors": [
