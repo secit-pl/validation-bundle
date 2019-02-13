@@ -63,7 +63,7 @@ Parameters
 
 | Parameter | Type | Default | Description |
 |---|---|---|---| 
-| matchCase | bool | false | Enable/disable verifying the file extension case |
+| matchCase | bool | false | Enable/disable verifying the characters case |
 | customNormalizationFunction | null or callable | null | Custom normalization function |
 
 ```php
