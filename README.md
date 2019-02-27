@@ -77,6 +77,40 @@ use SecIT\ValidationBundle\Validator\Constraints as SecITAssert;
  private $collection;
 ```
 
+This validator can also be used to validate unique files upload.
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Form;
+
+use SecIT\ValidationBundle\Validator\Constraints\CollectionOfUniqueElements;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\FormBuilderInterface;
+
+class ExampleType extends AbstractType
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder->add('files', CollectionType::class, [
+            'entry_type' => FileType::class,
+            'allow_add' => true,
+            'constraints' => [
+                new CollectionOfUniqueElements(),
+            ],
+        ]);
+    }
+}
+
+```
+
 ### AntiXss
 
 Checks if text contains XSS attack using [voku\anti-xss](https://github.com/voku/anti-xss) library.

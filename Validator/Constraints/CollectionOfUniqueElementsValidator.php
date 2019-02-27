@@ -3,6 +3,7 @@
 namespace SecIT\ValidationBundle\Validator\Constraints;
 
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -69,6 +70,19 @@ class CollectionOfUniqueElementsValidator extends ConstraintValidator
      */
     protected function normalize($value, bool $matchCase): string
     {
+        if ($value instanceof UploadedFile) {
+            if ($value->getError() !== UPLOAD_ERR_OK) {
+                return '';
+            }
+
+            $filePath = $value->getPathname();
+            if (!file_exists($filePath)) {
+                return ''; // This should never happen
+            }
+
+            return md5_file($filePath);
+        }
+
         $value = (string) $value;
         if (!$matchCase) {
             $value = mb_strtolower($value);

@@ -6,15 +6,16 @@ use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
 use SecIT\ValidationBundle\Validator\Constraints\CollectionOfUniqueElements;
 use SecIT\ValidationBundle\Validator\Constraints\CollectionOfUniqueElementsValidator;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
 /**
- * Class UniqueCollectionElementsTest.
+ * Class CollectionOfUniqueElementsTest.
  *
  * @author Tomasz Gemza
  */
-class UniqueCollectionElementsTest extends TestCase
+class CollectionOfUniqueElementsTest extends TestCase
 {
     /**
      * Test valid values.
@@ -79,6 +80,10 @@ class UniqueCollectionElementsTest extends TestCase
             [new ArrayCollection()],
             [new ArrayCollection(['aaa', 'bbb', 'ccc'])],
             [new ArrayCollection(['aaa', 'bbb', 'AAA']), true],
+            [[
+                new UploadedFile(__FILE__, basename(__FILE__), null, null, true),
+                new UploadedFile(dirname(dirname(__DIR__)).'/bootstrap.php', 'bootstrap.php', null, null, true),
+            ]],
         ];
     }
 
@@ -94,6 +99,7 @@ class UniqueCollectionElementsTest extends TestCase
             ['aaa'],
             [111],
             [null],
+            [new UploadedFile(__FILE__, basename(__FILE__), null, null, true)],
         ];
     }
 
@@ -109,6 +115,10 @@ class UniqueCollectionElementsTest extends TestCase
             [['aaa', 'AAA', 'AAA'], true],
             [new ArrayCollection(['aaa', 'bbb', 'aaa'])],
             [new ArrayCollection(['aaa', 'AAA', 'AAA']), true],
+            [[
+                new UploadedFile(__FILE__, basename(__FILE__), null, null, true),
+                new UploadedFile(__FILE__, basename(__FILE__), null, null, true),
+            ]],
         ];
     }
 
