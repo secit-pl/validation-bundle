@@ -3,3 +3,4 @@
 'The value is not a valid collection': 'Podana wartość nie jest poprawną kolekcją elementów'
 'XSS attack detected': 'Wykryto atak XSS'
 'No HTML allowed': 'Wprowadzanie kodu HTML do tego pola nie jest dozwolone'
+'Throw away email addresses (burner emails) are not allowed': 'Tymczasowe konta e-mail nie są dozwolone'
