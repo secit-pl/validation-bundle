@@ -140,3 +140,20 @@ use SecIT\ValidationBundle\Validator\Constraints as SecITAssert;
  */
  private $text;
 ```
+
+### BurnerEmail
+
+Checks if email address is a throw away email addresses (burner email).
+This check is perform against the list provided by [wesbos/burner-email-providers](https://github.com/wesbos/burner-email-providers).
+
+
+```php
+use SecIT\ValidationBundle\Validator\Constraints as SecITAssert;
+
+// ...
+
+/**
+ * @SecITAssert\BurnerEmail()
+ */
+ private $email;
+```

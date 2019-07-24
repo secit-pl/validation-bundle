@@ -17,7 +17,8 @@
         "symfony/dependency-injection": "~4.0",
         "symfony/http-foundation": "~4.0",
         "symfony/validator": "~4.0",
-        "voku/anti-xss": "~4.1"
+        "voku/anti-xss": "~4.1",
+        "wesbos/burner-email-providers": "1.0.x-dev"
     },
     "require-dev": {
         "phpunit/phpunit": "@stable",
@@ -30,5 +31,8 @@
         "branch-alias": {
             "dev-master": "1.0-dev"
         }
-    }
+    },
+    "repositories": [
+        { "type": "vcs", "url": "https://github.com/wesbos/burner-email-providers" }
+    ]
 }
