@@ -14,8 +14,8 @@ use Symfony\Component\Validator\Constraint;
  */
 class CollectionOfUniqueElements extends Constraint
 {
-    const FOUND_DUPLICATES_ERROR = '93ae5784-4ec7-4d3d-bde6-b231c1e2802e';
-    const INVALID_COLLECTION_ERROR = 'ccde91a5-a73f-42ad-9c94-320ecc2cd381';
+    public const FOUND_DUPLICATES_ERROR = '93ae5784-4ec7-4d3d-bde6-b231c1e2802e';
+    public const INVALID_COLLECTION_ERROR = 'ccde91a5-a73f-42ad-9c94-320ecc2cd381';
 
     protected static $errorNames = [
         self::FOUND_DUPLICATES_ERROR => 'FOUND_DUPLICATES_ERROR',
@@ -28,7 +28,7 @@ class CollectionOfUniqueElements extends Constraint
     public $matchCase = false;
 
     /**
-     * @var null|callable
+     * @var callable|null
      */
     public $customNormalizationFunction = null;
 
@@ -42,4 +42,3 @@ class CollectionOfUniqueElements extends Constraint
      */
     public $invalidCollectionMessage = 'The value is not a valid collection';
 }
-

@@ -26,7 +26,7 @@ class NaiveNoHtmlValidator extends ConstraintValidator
             return;
         }
 
-        $probablyHtml = strpos($value, '<') !== false;
+        $probablyHtml = false !== strpos($value, '<');
 
         if ($probablyHtml) {
             $this->context->buildViolation($constraint->message)
@@ -35,4 +35,3 @@ class NaiveNoHtmlValidator extends ConstraintValidator
         }
     }
 }
-

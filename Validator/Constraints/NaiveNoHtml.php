@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class NaiveNoHtml extends Constraint
 {
-    const HTML_FOUND_ERROR = '78858d72-5140-410a-9c54-0203fcbee54f';
+    public const HTML_FOUND_ERROR = '78858d72-5140-410a-9c54-0203fcbee54f';
 
     protected static $errorNames = [
         self::HTML_FOUND_ERROR => 'XSS_FOUND_ERROR',
@@ -25,4 +25,3 @@ class NaiveNoHtml extends Constraint
      */
     public $message = 'No HTML allowed';
 }
-

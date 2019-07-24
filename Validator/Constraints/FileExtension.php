@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class FileExtension extends Constraint
 {
-    const INVALID_EXTENSION_ERROR = '11edd7eb-5872-4b6e-9f12-89923999fd0e';
+    public const INVALID_EXTENSION_ERROR = '11edd7eb-5872-4b6e-9f12-89923999fd0e';
 
     protected static $errorNames = [
         self::INVALID_EXTENSION_ERROR => 'INVALID_EXTENSION_ERROR',
@@ -43,4 +43,3 @@ class FileExtension extends Constraint
         return 'validExtensions';
     }
 }
-

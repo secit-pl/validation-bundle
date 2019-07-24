@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class AntiXss extends Constraint
 {
-    const XSS_FOUND_ERROR = 'fce1015f-95ed-44e4-b96e-f033c9ff67e3';
+    public const XSS_FOUND_ERROR = 'fce1015f-95ed-44e4-b96e-f033c9ff67e3';
 
     protected static $errorNames = [
         self::XSS_FOUND_ERROR => 'XSS_FOUND_ERROR',
@@ -25,4 +25,3 @@ class AntiXss extends Constraint
      */
     public $message = 'XSS attack detected';
 }
-

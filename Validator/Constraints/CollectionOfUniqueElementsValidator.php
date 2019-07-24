@@ -71,7 +71,7 @@ class CollectionOfUniqueElementsValidator extends ConstraintValidator
     protected function normalize($value, bool $matchCase): string
     {
         if ($value instanceof UploadedFile) {
-            if ($value->getError() !== UPLOAD_ERR_OK) {
+            if (UPLOAD_ERR_OK !== $value->getError()) {
                 return '';
             }
 
