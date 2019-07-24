@@ -17,12 +17,14 @@
         "symfony/dependency-injection": "~4.0",
         "symfony/http-foundation": "~4.0",
         "symfony/validator": "~4.0",
-        "voku/anti-xss": "~4.1",
-        "wesbos/burner-email-providers": "1.0.x-dev"
+        "voku/anti-xss": "~4.1"
     },
     "require-dev": {
         "phpunit/phpunit": "@stable",
         "doctrine/orm": "^2.6"
+    },
+    "suggest": {
+        "wesbos/burner-email-providers": "Needed for BurnerEmailValidator"
     },
     "autoload": {
         "psr-4": { "SecIT\\ValidationBundle\\": "" }

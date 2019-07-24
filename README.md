@@ -145,7 +145,7 @@ use SecIT\ValidationBundle\Validator\Constraints as SecITAssert;
 
 Checks if email address is a throw away email addresses (burner email).
 This check is perform against the list provided by [wesbos/burner-email-providers](https://github.com/wesbos/burner-email-providers).
-
+You need to install this package manually (`composer require wesbos/burner-email-providers`) if you'd like to use this validator.
 
 ```php
 use SecIT\ValidationBundle\Validator\Constraints as SecITAssert;

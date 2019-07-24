@@ -4,3 +4,4 @@
 'XSS attack detected': 'XSS attack detected'
 'No HTML allowed': 'No HTML allowed'
 'Throw away email addresses (burner emails) are not allowed': 'Throw away email addresses (burner emails) are not allowed'
+'You need to install the wesbos/burner-email-providers package to use the BurnerEmailValidator': 'You need to install the wesbos/burner-email-providers package to use the BurnerEmailValidator'

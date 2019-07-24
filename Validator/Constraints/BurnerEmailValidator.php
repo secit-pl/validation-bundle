@@ -49,6 +49,10 @@ class BurnerEmailValidator extends ConstraintValidator
 
         $burnerDomains = $this->getBurnerEmailDomains();
         if (!$burnerDomains) {
+            $this->context->buildViolation($constraint->relatedPackageNotInstalledMessage)
+                ->setCode(BurnerEmail::RELATED_PACKAGE_NOT_INSTALLED_ERROR)
+                ->addViolation();
+
             return;
         }
 
