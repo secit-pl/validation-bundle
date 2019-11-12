@@ -54,6 +54,43 @@ class FileExtensionValidatorTest extends TestCase
         $validator = $this->configureValidator($constraint->message);
         $validator->validate($file, $constraint);
     }
+    /**
+     * Test allowed values.
+     *
+     * @param array $validExtensions
+     * @param mixed $file
+     * @param bool  $matchCase
+     *
+     * @dataProvider getInvalidValues
+     */
+    public function testAllowedValues(array $validExtensions, $file, ?bool $matchCase = false): void
+    {
+        $constraint = new FileExtension();
+        $constraint->disallowedExtensions = $validExtensions;
+        $constraint->matchCase = $matchCase;
+
+        $validator = $this->configureValidator();
+        $validator->validate($file, $constraint);
+    }
+
+    /**
+     * Test disallowed values.
+     *
+     * @param array $validExtensions
+     * @param mixed $file
+     * @param bool  $matchCase
+     *
+     * @dataProvider getValidValues
+     */
+    public function testDisallowedValues(array $validExtensions, $file, ?bool $matchCase = false): void
+    {
+        $constraint = new FileExtension();
+        $constraint->disallowedExtensions = $validExtensions;
+        $constraint->matchCase = $matchCase;
+
+        $validator = $this->configureValidator($constraint->disallowedMessage);
+        $validator->validate($file, $constraint);
+    }
 
     /**
      * Invalid values.
@@ -65,6 +102,7 @@ class FileExtensionValidatorTest extends TestCase
         $uploadedFile = new UploadedFile(__FILE__, 'test.pdf', null, null, true);
 
         return [
+            [['png', 'jpg', 'gif'], 'test.png'],
             [['png', 'jpg', 'gif'], 'test.png'],
             [['png', 'JPG', 'gif'], 'test.JPG', false],
             [['png', 'JPG', 'gif'], 'test.gif', false],

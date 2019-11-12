@@ -40,16 +40,26 @@ class FileExtensionValidator extends ConstraintValidator
         }
 
         $validExtensions = $constraint->validExtensions;
+        $disallowedExtensions = $constraint->disallowedExtensions;
         if (!$constraint->matchCase) {
             $extension = strtolower($extension);
             $validExtensions = array_map('strtolower', $validExtensions);
+            $disallowedExtensions = array_map('strtolower', $disallowedExtensions);
         }
 
-        if (!in_array($extension, $validExtensions)) {
+        if ($validExtensions && !in_array($extension, $validExtensions)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ extension }}', $this->formatValue($extension))
                 ->setParameter('{{ extensions }}', $this->formatValues($constraint->validExtensions))
                 ->setCode(FileExtension::INVALID_EXTENSION_ERROR)
+                ->addViolation();
+        }
+
+        if ($disallowedExtensions && in_array($extension, $disallowedExtensions)) {
+            $this->context->buildViolation($constraint->disallowedMessage)
+                ->setParameter('{{ extension }}', $this->formatValue($extension))
+                ->setParameter('{{ extensions }}', $this->formatValues($constraint->disallowedExtensions))
+                ->setCode(FileExtension::DISALLOWED_EXTENSION_ERROR)
                 ->addViolation();
         }
     }

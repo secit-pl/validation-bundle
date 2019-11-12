@@ -29,11 +29,23 @@ use SecIT\ValidationBundle\Validator\Constraints as SecITAssert;
  */
 ```
 
+
+```php
+use SecIT\ValidationBundle\Validator\Constraints as SecITAssert;
+
+// ...
+
+/**
+ * @SecITAssert\FileExtension(disallowedExtensions={"php", "exe", "com"})
+ */
+```
+
 Parameters
 
 | Parameter | Type | Default | Description |
 |---|---|---|---| 
 | validExtensions | array | empty array | Allowed/valid file extensions list |
+| disallowedExtensions | array | empty array | Disallowed/invalid file extensions list |
 | matchCase | bool | false | Enable/disable verifying the file extension case |
 
 **Caution!** It's highly recommended to use this validator together with native Symfony File/Image validator.
