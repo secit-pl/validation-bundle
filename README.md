@@ -1,6 +1,6 @@
 # Symfony Validation Bundle
 
-Additional validators set for Symfony 4.x.
+Additional validators set for Symfony 4.x and 5.x.
 
 ## Installation
 
