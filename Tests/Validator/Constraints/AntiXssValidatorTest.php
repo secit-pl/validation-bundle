@@ -2,7 +2,6 @@
 
 namespace SecIT\ValidationBundle\Tests\Validator\Constraints;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
 use SecIT\ValidationBundle\Validator\Constraints\AntiXss;
 use SecIT\ValidationBundle\Validator\Constraints\AntiXssValidator;
