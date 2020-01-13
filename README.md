@@ -12,6 +12,30 @@ $ composer require secit-pl/validation-bundle
 
 ## Validators
 
+### NotBlankIf
+
+This validator checks if value is not blank like a standard NotBlank Symfony validator, but also allows define 
+the condition when the NotBlank validation should be performed using Symfony Expression Language.
+
+Example usage
+
+```php
+use SecIT\ValidationBundle\Validator\Constraints as SecITAssert;
+
+// ...
+
+/**
+ * @SecITAssert\NotBlankIf("this.isSuperUser")
+ */
+```
+
+Parameters
+
+| Parameter | Type | Default | Description |
+|---|---|---|---| 
+| expression | string | empty array | The expression that will be evaluated. If the expression evaluates to a false value (using ==, not ===), not blank validation won't be performed) |
+| values | array | empty array | The values of the custom variables used in the expression. Values can be of any type (numeric, boolean, strings, null, etc.) |
+
 
 ### FileExtension
 
