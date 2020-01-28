@@ -100,6 +100,7 @@ class FileExtensionValidatorTest extends TestCase
     public function getValidValues(): array
     {
         $uploadedFile = new UploadedFile(__FILE__, 'test.pdf', null, null, true);
+        $notUploadedFile = new UploadedFile(__FILE__, 'test.pdf', null, UPLOAD_ERR_FORM_SIZE, true);
 
         return [
             [['png', 'jpg', 'gif'], 'test.png'],
@@ -110,6 +111,7 @@ class FileExtensionValidatorTest extends TestCase
             [['php'], new \SplFileInfo(__FILE__)],
             [['php'], new File(__FILE__)],
             [['pdf'], $uploadedFile],
+            [['pdf'], $notUploadedFile],
         ];
     }
 
@@ -121,6 +123,7 @@ class FileExtensionValidatorTest extends TestCase
     public function getInvalidValues(): array
     {
         $uploadedFile = new UploadedFile(__FILE__, 'test.pdf', null, null, true);
+        $notUploadedFile = new UploadedFile(__FILE__, 'test.pdf', null, UPLOAD_ERR_FORM_SIZE, true);
 
         return [
             [['png'], 'gif'],
@@ -131,6 +134,7 @@ class FileExtensionValidatorTest extends TestCase
             [['mp4'], new \SplFileInfo(__FILE__)],
             [['mp4'], new File(__FILE__)],
             [['php'], $uploadedFile],
+            [['php'], $notUploadedFile],
         ];
     }
 

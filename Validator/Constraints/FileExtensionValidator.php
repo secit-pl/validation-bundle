@@ -29,8 +29,12 @@ class FileExtensionValidator extends ConstraintValidator
         }
 
         $extension = null;
-        if ($value instanceof UploadedFile && $value->isValid()) {
-            $extension = $value->getClientOriginalExtension();
+        if ($value instanceof UploadedFile) {
+            if ($value->isValid()) {
+                $extension = $value->getClientOriginalExtension();
+            } else {
+                $extension = pathinfo($value->getClientOriginalName(), PATHINFO_EXTENSION);
+            }
         } elseif (!is_scalar($value) && !$value instanceof FileObject && !(is_object($value) && method_exists($value, '__toString'))) {
             throw new UnexpectedTypeException($value, 'string');
         } elseif ($value instanceof FileObject) {
