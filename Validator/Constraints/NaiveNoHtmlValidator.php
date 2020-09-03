@@ -26,7 +26,11 @@ class NaiveNoHtmlValidator extends ConstraintValidator
             return;
         }
 
-        $probablyHtml = false !== strpos($value, '<');
+        if ($constraint->strongValidation) {
+            $probablyHtml = false !== strpos($value, '<');
+        } else {
+            $probablyHtml = preg_match('/<[^<]+>/msU', $value);
+        }
 
         if ($probablyHtml) {
             $this->context->buildViolation($constraint->message)

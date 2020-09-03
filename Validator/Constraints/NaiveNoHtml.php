@@ -24,4 +24,9 @@ class NaiveNoHtml extends Constraint
      * @var string
      */
     public $message = 'No HTML allowed';
+
+    /**
+     * @var bool
+     */
+    public $strongValidation = true;
 }

@@ -16,41 +16,75 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 class NaiveNoHtmlValidatorTest extends TestCase
 {
     /**
-     * Test valid values.
+     * Test strong validation valid values.
      *
      * @param mixed $values
      *
-     * @dataProvider getValidValues
+     * @dataProvider getStrongValidationValidValues
      */
-    public function testValidValues($values): void
+    public function testStrongValidationValidValues($values): void
     {
         $constraint = new NaiveNoHtml();
+        $constraint->strongValidation = true;
 
         $validator = $this->configureValidator();
         $validator->validate($values, $constraint);
     }
 
     /**
-     * Test invalid values.
+     * Test strong validation invalid values.
      *
      * @param mixed $values
      *
-     * @dataProvider getInvalidValues
+     * @dataProvider getStrongValidationInvalidValues
      */
-    public function testInvalidValues($values): void
+    public function testStrongValidationInvalidValues($values): void
     {
         $constraint = new NaiveNoHtml();
+        $constraint->strongValidation = true;
 
         $validator = $this->configureValidator($constraint->message);
         $validator->validate($values, $constraint);
     }
 
     /**
-     * Invalid values.
+     * Test weak validation valid values.
+     *
+     * @param mixed $values
+     *
+     * @dataProvider getWeakValidationValidValues
+     */
+    public function testWeakValidationValidValues($values): void
+    {
+        $constraint = new NaiveNoHtml();
+        $constraint->strongValidation = false;
+
+        $validator = $this->configureValidator();
+        $validator->validate($values, $constraint);
+    }
+
+    /**
+     * Test weak validation invalid values.
+     *
+     * @param mixed $values
+     *
+     * @dataProvider getWeakValidationInvalidValues
+     */
+    public function testWeakValidationInvalidValues($values): void
+    {
+        $constraint = new NaiveNoHtml();
+        $constraint->strongValidation = false;
+
+        $validator = $this->configureValidator($constraint->message);
+        $validator->validate($values, $constraint);
+    }
+
+    /**
+     * Strong validation valid values.
      *
      * @return array
      */
-    public function getValidValues(): array
+    public function getStrongValidationValidValues(): array
     {
         return [
             [null],
@@ -62,17 +96,52 @@ class NaiveNoHtmlValidatorTest extends TestCase
     }
 
     /**
-     * Valid values.
+     * Strong validation invalid values.
      *
      * @return array
      */
-    public function getInvalidValues(): array
+    public function getStrongValidationInvalidValues(): array
     {
         return [
             ['<b>asd</b>'],
             ['<img src="http://example.com/test.png" alt="image">asd</img>'],
+            ['<br />'],
             ['text with unclosed html <tag'],
             ['<'],
+            ['I <3 You'],
+        ];
+    }
+
+    /**
+     * Weak validation valid values.
+     *
+     * @return array
+     */
+    public function getWeakValidationValidValues(): array
+    {
+        return [
+            [null],
+            [''],
+            ['text'],
+            ['text 1, 2, 3...'],
+            ['&nbsp;'],
+            ['text with unclosed html <tag'],
+            ['<'],
+            ['I <3 You'],
+        ];
+    }
+
+    /**
+     * Weak validation invalid values.
+     *
+     * @return array
+     */
+    public function getWeakValidationInvalidValues(): array
+    {
+        return [
+            ['<b>asd</b>'],
+            ['<img src="http://example.com/test.png" alt="image">asd</img>'],
+            ['<br />'],
         ];
     }
 

@@ -177,6 +177,12 @@ use SecIT\ValidationBundle\Validator\Constraints as SecITAssert;
  private $text;
 ```
 
+Parameters
+
+| Parameter | Type | Default | Description |
+|---|---|---|---| 
+| strongValidation | bool | true (recommended) | Enable/disable strong validation. Disable if you'd like to allow strings with unclosed tags such as as "I <3 You". |
+
 ### BurnerEmail
 
 Checks if email address is a throw away email addresses (burner email).
