@@ -24,6 +24,17 @@ class FileExtensionValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, __NAMESPACE__.'\FileExtension');
         }
 
+        if (!is_array($value)) {
+            $value = [$value];
+        }
+
+        foreach ($value as $element) {
+            $this->performSingleElementValidation($element, $constraint);
+        }
+    }
+
+    private function performSingleElementValidation($value, Constraint $constraint)
+    {
         if (null === $value || '' === $value) {
             return;
         }

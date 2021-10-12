@@ -112,6 +112,15 @@ class FileExtensionValidatorTest extends TestCase
             [['php'], new File(__FILE__)],
             [['pdf'], $uploadedFile],
             [['pdf'], $notUploadedFile],
+            [['png', 'jpg', 'gif'], ['test.png', 'test.jpg']],
+            [['png', 'jpg', 'gif'], ['test.png', 'test.jpg']],
+            [['png', 'JPG', 'gif'], ['test.JPG', 'test.GIF'], false],
+            [['png', 'JPG', 'gif'], ['test.jpg', 'test.gif'], false],
+            [['jpg'], ['/path/to/file/test1.jpg', '/path/to/file/test2.jpg']],
+            [['php'], [new \SplFileInfo(__FILE__), new \SplFileInfo(__FILE__)]],
+            [['php'], [new File(__FILE__), new File(__FILE__)]],
+            [['pdf'], [$uploadedFile, $uploadedFile]],
+            [['pdf'], [$notUploadedFile, $notUploadedFile]],
         ];
     }
 
@@ -135,6 +144,15 @@ class FileExtensionValidatorTest extends TestCase
             [['mp4'], new File(__FILE__)],
             [['php'], $uploadedFile],
             [['php'], $notUploadedFile],
+            [['png'], ['gif', 'jpg']],
+            [['png', 'JPG', 'gif'], ['test.jpg', 'test.GIF'], true],
+            [['png', 'JPG', 'gif'], ['test.PNG', 'test.GIF'], true],
+            [['txt', 'mp3'], ['test.png', 'test.jpg']],
+            [['txt'], ['/path/to/file/test.jpg', '/path/to/file/test.gif']],
+            [['mp4'], [new \SplFileInfo(__FILE__), new \SplFileInfo(__FILE__)]],
+            [['mp4'], [new File(__FILE__), new File(__FILE__)]],
+            [['php'], [$uploadedFile, $uploadedFile]],
+            [['php'], [$notUploadedFile, $notUploadedFile]],
         ];
     }
 
@@ -158,10 +176,10 @@ class FileExtensionValidatorTest extends TestCase
             ->getMock();
 
         if ($expectedMessage) {
-            $builder->expects($this->once())
+            $builder->expects($this->atLeastOnce())
                 ->method('addViolation');
 
-            $context->expects($this->once())
+            $context->expects($this->atLeastOnce())
                 ->method('buildViolation')
                 ->with($this->equalTo($expectedMessage))
                 ->will($this->returnValue($builder));
