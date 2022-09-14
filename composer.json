@@ -3,7 +3,7 @@
     "type": "symfony-bundle",
     "description": "Additional Symfony validators.",
     "keywords": ["symfony", "validator", "file", "file extension", "xss", "html"],
-    "homepage": "http://secit.pl",
+    "homepage": "https://secit.pl",
     "license": "MIT",
     "authors": [
         {
@@ -13,11 +13,11 @@
     ],
     "require": {
         "php": ">=7.1.0",
-        "symfony/framework-bundle": "~4.0|~5.0",
-        "symfony/dependency-injection": "~4.0|~5.0",
-        "symfony/expression-language": "~4.0|~5.0",
-        "symfony/http-foundation": "~4.0|~5.0",
-        "symfony/validator": "~4.0|~5.0",
+        "symfony/framework-bundle": "~4.0|~5.0|~6.0",
+        "symfony/dependency-injection": "~4.0|~5.0|~6.0",
+        "symfony/expression-language": "~4.0|~5.0|~6.0",
+        "symfony/http-foundation": "~4.0|~5.0|~6.0",
+        "symfony/validator": "~4.0|~5.0|~6.0",
         "voku/anti-xss": "~4.1"
     },
     "require-dev": {
