@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraint;
  *
  * @author Tomasz Gemza
  */
+#[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
 class BurnerEmail extends Constraint
 {
     public const BURNER_EMAIL_ERROR = '0697c190-0374-4050-80ba-588ea0ecdf77';

@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraint;
  *
  * @author Tomasz Gemza
  */
+#[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
 class AntiXss extends Constraint
 {
     public const XSS_FOUND_ERROR = 'fce1015f-95ed-44e4-b96e-f033c9ff67e3';

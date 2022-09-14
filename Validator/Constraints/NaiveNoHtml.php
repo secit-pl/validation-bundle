@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraint;
  *
  * @author Tomasz Gemza
  */
+#[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
 class NaiveNoHtml extends Constraint
 {
     public const HTML_FOUND_ERROR = '78858d72-5140-410a-9c54-0203fcbee54f';

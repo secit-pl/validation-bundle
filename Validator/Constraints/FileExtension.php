@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraint;
  *
  * @author Tomasz Gemza
  */
+#[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
 class FileExtension extends Constraint
 {
     public const INVALID_EXTENSION_ERROR = '11edd7eb-5872-4b6e-9f12-89923999fd0e';

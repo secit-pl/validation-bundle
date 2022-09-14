@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraint;
  *
  * @author Tomasz Gemza
  */
+#[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
 class CollectionOfUniqueElements extends Constraint
 {
     public const FOUND_DUPLICATES_ERROR = '93ae5784-4ec7-4d3d-bde6-b231c1e2802e';

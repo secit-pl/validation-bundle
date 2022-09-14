@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Exception\LogicException;
  *
  * @author Tomasz Gemza
  */
+#[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
 class NotBlankIf extends NotBlank
 {
     public const IS_BLANK_IF_ERROR = '199bb09f-0732-42f4-8bcf-f01ff89526c0';
