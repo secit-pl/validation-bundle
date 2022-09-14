@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SecIT\ValidationBundle\Validator\Constraints;
 
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -8,34 +10,21 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
- * Class BurnerEmailValidator.
- *
  * @author Tomasz Gemza
  */
 class BurnerEmailValidator extends ConstraintValidator
 {
-    /**
-     * @var ParameterBagInterface
-     */
-    private $parameterBag;
+    private ParameterBagInterface $parameterBag;
 
-    /**
-     * BurnerEmailValidator constructor.
-     *
-     * @param ParameterBagInterface $parameterBag
-     */
     public function __construct(ParameterBagInterface $parameterBag)
     {
         $this->parameterBag = $parameterBag;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function validate($value, Constraint $constraint)
     {
         if (!$constraint instanceof BurnerEmail) {
-            throw new UnexpectedTypeException($constraint, __NAMESPACE__.'\BurnerEmail');
+            throw new UnexpectedTypeException($constraint, BurnerEmail::class);
         }
 
         if (null === $value || '' === $value) {
@@ -67,14 +56,10 @@ class BurnerEmailValidator extends ConstraintValidator
 
     /**
      * Extract domain from an email address.
-     *
-     * @param string $email
-     *
-     * @return string|null
      */
     private function getEmailDomain(string $email): ?string
     {
-        if (strpos($email, '@') === false) {
+        if (!str_contains($email, '@')) {
             return null;
         }
 
@@ -83,8 +68,6 @@ class BurnerEmailValidator extends ConstraintValidator
 
     /**
      * Get burner email providers domains.
-     *
-     * @return array
      */
     private function getBurnerEmailDomains(): array
     {

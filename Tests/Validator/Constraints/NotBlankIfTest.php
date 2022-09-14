@@ -6,24 +6,17 @@ use PHPUnit\Framework\TestCase;
 use SecIT\ValidationBundle\Validator\Constraints\NotBlankIf;
 use SecIT\ValidationBundle\Validator\Constraints\NotBlankIfValidator;
 use Symfony\Component\DependencyInjection\ExpressionLanguage;
+use Symfony\Component\ExpressionLanguage\Expression as ExpressionObject;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
 /**
- * Class NotBlankIfTest.
- *
  * @author Tomasz Gemza
  */
 class NotBlankIfTest extends TestCase
 {
-    /**
-     * @var null|\stdClass
-     */
-    private $testObject = null;
+    private ?\stdClass $testObject = null;
 
-    /**
-     * {@inheritDoc}
-     */
     protected function setUp(): void
     {
         $this->testObject = new \stdClass();
@@ -32,42 +25,27 @@ class NotBlankIfTest extends TestCase
     }
 
     /**
-     * Test valid values.
-     *
-     * @param mixed $condition
-     * @param mixed $value
-     *
      * @dataProvider getValidValues
      */
-    public function testValidValue($condition, $value): void
+    public function testValidValue(string|ExpressionObject|null $condition, mixed $value): void
     {
-        $constraint = new NotBlankIf(['expression' => $condition]);
+        $constraint = new NotBlankIf($condition);
 
         $validator = $this->configureValidator();
         $validator->validate($value, $constraint);
     }
 
     /**
-     * Test invalid values.
-     *
-     * @param mixed $condition
-     * @param mixed $value
-     *
      * @dataProvider getInvalidValues
      */
-    public function testInvalidValue($condition, $value): void
+    public function testInvalidValue(string|ExpressionObject|null $condition, mixed $value): void
     {
-        $constraint = new NotBlankIf(['expression' => $condition]);
+        $constraint = new NotBlankIf($condition);
 
         $validator = $this->configureValidator($constraint->message);
         $validator->validate($value, $constraint);
     }
 
-    /**
-     * Invalid values.
-     *
-     * @return array
-     */
     public function getValidValues(): array
     {
         return [
@@ -78,11 +56,6 @@ class NotBlankIfTest extends TestCase
         ];
     }
 
-    /**
-     * Valid values.
-     *
-     * @return array
-     */
     public function getInvalidValues(): array
     {
         return [
@@ -92,14 +65,7 @@ class NotBlankIfTest extends TestCase
         ];
     }
 
-    /**
-     * Configure validator.
-     *
-     * @param null $expectedMessage
-     *
-     * @return NotBlankIfValidator
-     */
-    private function configureValidator($expectedMessage = null): NotBlankIfValidator
+    private function configureValidator(?string $expectedMessage = null): NotBlankIfValidator
     {
         $builder = $this->getMockBuilder(ConstraintViolationBuilder::class)
             ->disableOriginalConstructor()

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SecIT\ValidationBundle\Validator\Constraints;
 
 use Symfony\Component\HttpFoundation\File\File as FileObject;
@@ -9,8 +11,6 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
- * Class FileExtensionValidator.
- *
  * @author Tomasz Gemza
  */
 class FileExtensionValidator extends ConstraintValidator
@@ -21,7 +21,7 @@ class FileExtensionValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         if (!$constraint instanceof FileExtension) {
-            throw new UnexpectedTypeException($constraint, __NAMESPACE__.'\FileExtension');
+            throw new UnexpectedTypeException($constraint, FileExtension::class);
         }
 
         if (!is_array($value)) {

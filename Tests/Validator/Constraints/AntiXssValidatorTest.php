@@ -9,35 +9,23 @@ use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
 /**
- * Class AntiXssValidatorTest.
- *
  * @author Tomasz Gemza
  */
 class AntiXssValidatorTest extends TestCase
 {
     /**
-     * Test valid values.
-     *
-     * @param mixed $values
-     *
      * @dataProvider getValidValues
      */
-    public function testValidValues($values): void
+    public function testValidValues(mixed $values): void
     {
-        $constraint = new AntiXss();
-
         $validator = $this->configureValidator();
-        $validator->validate($values, $constraint);
+        $validator->validate($values, new AntiXss());
     }
 
     /**
-     * Test invalid values.
-     *
-     * @param mixed $values
-     *
      * @dataProvider getInvalidValues
      */
-    public function testInvalidValues($values): void
+    public function testInvalidValues(mixed $values): void
     {
         $constraint = new AntiXss();
 
@@ -45,11 +33,6 @@ class AntiXssValidatorTest extends TestCase
         $validator->validate($values, $constraint);
     }
 
-    /**
-     * Invalid values.
-     *
-     * @return array
-     */
     public function getValidValues(): array
     {
         return [
@@ -63,11 +46,6 @@ class AntiXssValidatorTest extends TestCase
         ];
     }
 
-    /**
-     * Valid values.
-     *
-     * @return array
-     */
     public function getInvalidValues(): array
     {
         return [
@@ -87,14 +65,7 @@ class AntiXssValidatorTest extends TestCase
         ];
     }
 
-    /**
-     * Configure validator.
-     *
-     * @param null $expectedMessage
-     *
-     * @return AntiXssValidator
-     */
-    private function configureValidator($expectedMessage = null): AntiXssValidator
+    private function configureValidator(?string $expectedMessage = null): AntiXssValidator
     {
         $builder = $this->getMockBuilder(ConstraintViolationBuilder::class)
             ->disableOriginalConstructor()

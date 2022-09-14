@@ -10,8 +10,6 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
 /**
- * Class ValidationExtension.
- *
  * @author Tomasz Gemza
  */
 class ValidationExtension extends Extension

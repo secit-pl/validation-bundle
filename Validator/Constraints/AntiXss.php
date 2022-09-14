@@ -1,12 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SecIT\ValidationBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 
 /**
- * Class FileExtension.
- *
  * @Annotation
  * @Target({"PROPERTY", "METHOD", "ANNOTATION"})
  *
@@ -21,8 +21,16 @@ class AntiXss extends Constraint
         self::XSS_FOUND_ERROR => 'XSS_FOUND_ERROR',
     ];
 
-    /**
-     * @var string
-     */
-    public $message = 'XSS attack detected';
+    public string $message = 'XSS attack detected';
+
+    public function __construct(
+        ?string $message = null,
+        mixed $options = null,
+        array $groups = null,
+        mixed $payload = null,
+    ) {
+        $this->message = $message ?? $this->message;
+
+        parent::__construct($options, $groups, $payload);
+    }
 }

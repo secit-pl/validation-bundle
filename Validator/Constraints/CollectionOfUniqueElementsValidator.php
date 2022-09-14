@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SecIT\ValidationBundle\Validator\Constraints;
 
 use Doctrine\Common\Collections\Collection;
@@ -9,15 +11,10 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
- * Class CollectionOfUniqueElementsValidator.
- *
  * @author Tomasz Gemza
  */
 class CollectionOfUniqueElementsValidator extends ConstraintValidator
 {
-    /**
-     * {@inheritdoc}
-     */
     public function validate($value, Constraint $constraint)
     {
         if (!$constraint instanceof CollectionOfUniqueElements) {
@@ -62,13 +59,8 @@ class CollectionOfUniqueElementsValidator extends ConstraintValidator
 
     /**
      * Normalize value to allow comparison.
-     *
-     * @param mixed $value
-     * @param bool  $matchCase
-     *
-     * @return string
      */
-    protected function normalize($value, bool $matchCase): string
+    protected function normalize(mixed $value, bool $matchCase): string
     {
         if ($value instanceof UploadedFile) {
             if (UPLOAD_ERR_OK !== $value->getError()) {

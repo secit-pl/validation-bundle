@@ -1,21 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SecIT\ValidationBundle\Validator\Constraints;
 
 use Symfony\Component\DependencyInjection\ExpressionLanguage;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Constraints\Expression;
 use Symfony\Component\Validator\Constraints\NotBlankValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
- * Class NotBlankIfValidator.
- *
  * @author Tomasz Gemza
  */
 class NotBlankIfValidator extends NotBlankValidator
 {
-    private $expressionLanguage;
+    private ExpressionLanguage|null $expressionLanguage;
 
     public function __construct(ExpressionLanguage $expressionLanguage = null)
     {
@@ -25,7 +24,7 @@ class NotBlankIfValidator extends NotBlankValidator
     public function validate($value, Constraint $constraint)
     {
         if (!$constraint instanceof NotBlankIf) {
-            throw new UnexpectedTypeException($constraint, __NAMESPACE__.'\NotBlankIf');
+            throw new UnexpectedTypeException($constraint, NotBlankIf::class);
         }
 
         $variables = $constraint->values;

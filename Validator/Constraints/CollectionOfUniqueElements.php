@@ -1,12 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SecIT\ValidationBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 
 /**
- * Class CollectionOfUniqueElements.
- *
  * @Annotation
  * @Target({"PROPERTY", "METHOD", "ANNOTATION"})
  *
@@ -23,23 +23,25 @@ class CollectionOfUniqueElements extends Constraint
         self::INVALID_COLLECTION_ERROR => 'INVALID_COLLECTION_ERROR',
     ];
 
-    /**
-     * @var bool
-     */
-    public $matchCase = false;
+    public bool $matchCase = false;
+    public mixed $customNormalizationFunction = null;
+    public string $message = 'The collection contains duplicated elements ({{ duplicates }})';
+    public string $invalidCollectionMessage = 'The value is not a valid collection';
 
-    /**
-     * @var callable|null
-     */
-    public $customNormalizationFunction = null;
+    public function __construct(
+        ?bool $matchCase = null,
+        mixed $customNormalizationFunction = null,
+        ?string $message = null,
+        ?string $invalidCollectionMessage = null,
+        mixed $options = null,
+        array $groups = null,
+        mixed $payload = null,
+    ) {
+        $this->matchCase = $matchCase ?? $this->matchCase;
+        $this->customNormalizationFunction = $customNormalizationFunction ?? $this->customNormalizationFunction;
+        $this->message = $message ?? $this->message;
+        $this->invalidCollectionMessage = $invalidCollectionMessage ?? $this->invalidCollectionMessage;
 
-    /**
-     * @var string
-     */
-    public $message = 'The collection contains duplicated elements ({{ duplicates }})';
-
-    /**
-     * @var string
-     */
-    public $invalidCollectionMessage = 'The value is not a valid collection';
+        parent::__construct($options, $groups, $payload);
+    }
 }

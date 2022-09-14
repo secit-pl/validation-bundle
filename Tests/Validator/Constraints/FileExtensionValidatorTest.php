@@ -11,92 +11,52 @@ use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
 /**
- * Class FileExtensionValidatorTest.
- *
  * @author Tomasz Gemza
  */
 class FileExtensionValidatorTest extends TestCase
 {
     /**
-     * Test valid values.
-     *
-     * @param array $validExtensions
-     * @param mixed $file
-     * @param bool  $matchCase
-     *
      * @dataProvider getValidValues
      */
     public function testValidValues(array $validExtensions, $file, ?bool $matchCase = false): void
     {
-        $constraint = new FileExtension();
-        $constraint->validExtensions = $validExtensions;
-        $constraint->matchCase = $matchCase;
-
         $validator = $this->configureValidator();
-        $validator->validate($file, $constraint);
+        $validator->validate($file, new FileExtension($validExtensions, null, $matchCase));
     }
 
     /**
-     * Test invalid values.
-     *
-     * @param array $validExtensions
-     * @param mixed $file
-     * @param bool  $matchCase
-     *
      * @dataProvider getInvalidValues
      */
-    public function testInvalidValues(array $validExtensions, $file, ?bool $matchCase = false): void
+    public function testInvalidValues(array $validExtensions, mixed $file, ?bool $matchCase = false): void
     {
-        $constraint = new FileExtension();
-        $constraint->validExtensions = $validExtensions;
-        $constraint->matchCase = $matchCase;
+        $constraint = new FileExtension($validExtensions, null, $matchCase);
 
         $validator = $this->configureValidator($constraint->message);
         $validator->validate($file, $constraint);
     }
+
     /**
-     * Test allowed values.
-     *
-     * @param array $validExtensions
-     * @param mixed $file
-     * @param bool  $matchCase
-     *
      * @dataProvider getInvalidValues
      */
-    public function testAllowedValues(array $validExtensions, $file, ?bool $matchCase = false): void
+    public function testAllowedValues(array $validExtensions, mixed $file, ?bool $matchCase = false): void
     {
-        $constraint = new FileExtension();
-        $constraint->disallowedExtensions = $validExtensions;
-        $constraint->matchCase = $matchCase;
+        $constraint = new FileExtension($validExtensions, null, $matchCase);
 
         $validator = $this->configureValidator();
         $validator->validate($file, $constraint);
     }
 
     /**
-     * Test disallowed values.
-     *
-     * @param array $validExtensions
-     * @param mixed $file
-     * @param bool  $matchCase
-     *
      * @dataProvider getValidValues
      */
-    public function testDisallowedValues(array $validExtensions, $file, ?bool $matchCase = false): void
+    public function testDisallowedValues(array $disallowedExtensions, mixed $file, ?bool $matchCase = false): void
     {
-        $constraint = new FileExtension();
-        $constraint->disallowedExtensions = $validExtensions;
-        $constraint->matchCase = $matchCase;
+        $constraint = new FileExtension(null, $disallowedExtensions, $matchCase);
 
         $validator = $this->configureValidator($constraint->disallowedMessage);
         $validator->validate($file, $constraint);
     }
 
-    /**
-     * Invalid values.
-     *
-     * @return array
-     */
     public function getValidValues(): array
     {
         $uploadedFile = new UploadedFile(__FILE__, 'test.pdf', null, null, true);
@@ -124,11 +84,6 @@ class FileExtensionValidatorTest extends TestCase
         ];
     }
 
-    /**
-     * Valid values.
-     *
-     * @return array
-     */
     public function getInvalidValues(): array
     {
         $uploadedFile = new UploadedFile(__FILE__, 'test.pdf', null, null, true);
@@ -156,14 +111,7 @@ class FileExtensionValidatorTest extends TestCase
         ];
     }
 
-    /**
-     * Configure validator.
-     *
-     * @param null $expectedMessage
-     *
-     * @return FileExtensionValidator
-     */
-    private function configureValidator($expectedMessage = null): FileExtensionValidator
+    private function configureValidator(?string $expectedMessage = null): FileExtensionValidator
     {
         $builder = $this->getMockBuilder(ConstraintViolationBuilder::class)
             ->disableOriginalConstructor()

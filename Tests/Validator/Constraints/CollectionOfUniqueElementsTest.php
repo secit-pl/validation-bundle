@@ -11,37 +11,23 @@ use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
 /**
- * Class CollectionOfUniqueElementsTest.
- *
  * @author Tomasz Gemza
  */
 class CollectionOfUniqueElementsTest extends TestCase
 {
     /**
-     * Test valid values.
-     *
-     * @param mixed $values
-     * @param bool  $matchCase
-     *
      * @dataProvider getValidValues
      */
-    public function testValidValues($values, ?bool $matchCase = false): void
+    public function testValidValues(mixed $values, ?bool $matchCase = false): void
     {
-        $constraint = new CollectionOfUniqueElements();
-        $constraint->matchCase = $matchCase;
-
         $validator = $this->configureValidator();
-        $validator->validate($values, $constraint);
+        $validator->validate($values, new CollectionOfUniqueElements($matchCase));
     }
 
     /**
-     * Test invalid collection.
-     *
-     * @param mixed $values
-     *
      * @dataProvider getInvalidCollections
      */
-    public function testInvalidCollections($values): void
+    public function testInvalidCollections(mixed $values): void
     {
         $constraint = new CollectionOfUniqueElements();
 
@@ -50,27 +36,16 @@ class CollectionOfUniqueElementsTest extends TestCase
     }
 
     /**
-     * Test invalid values.
-     *
-     * @param mixed $values
-     * @param bool  $matchCase
-     *
      * @dataProvider getInvalidValues
      */
-    public function testInvalidValues($values, ?bool $matchCase = false): void
+    public function testInvalidValues(mixed $values, ?bool $matchCase = false): void
     {
-        $constraint = new CollectionOfUniqueElements();
-        $constraint->matchCase = $matchCase;
+        $constraint = new CollectionOfUniqueElements($matchCase);
 
         $validator = $this->configureValidator($constraint->message);
         $validator->validate($values, $constraint);
     }
 
-    /**
-     * Invalid values.
-     *
-     * @return array
-     */
     public function getValidValues(): array
     {
         return [
@@ -87,11 +62,6 @@ class CollectionOfUniqueElementsTest extends TestCase
         ];
     }
 
-    /**
-     * Valid values.
-     *
-     * @return array
-     */
     public function getInvalidCollections(): array
     {
         return [
@@ -103,11 +73,6 @@ class CollectionOfUniqueElementsTest extends TestCase
         ];
     }
 
-    /**
-     * Valid values.
-     *
-     * @return array
-     */
     public function getInvalidValues(): array
     {
         return [
@@ -122,14 +87,7 @@ class CollectionOfUniqueElementsTest extends TestCase
         ];
     }
 
-    /**
-     * Configure validator.
-     *
-     * @param null $expectedMessage
-     *
-     * @return CollectionOfUniqueElementsValidator
-     */
-    private function configureValidator($expectedMessage = null): CollectionOfUniqueElementsValidator
+    private function configureValidator(?string $expectedMessage = null): CollectionOfUniqueElementsValidator
     {
         $builder = $this->getMockBuilder(ConstraintViolationBuilder::class)
             ->disableOriginalConstructor()

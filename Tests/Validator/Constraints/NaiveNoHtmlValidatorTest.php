@@ -9,17 +9,11 @@ use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
 /**
- * Class NaiveNoHtmlValidatorTest.
- *
  * @author Tomasz Gemza
  */
 class NaiveNoHtmlValidatorTest extends TestCase
 {
     /**
-     * Test strong validation valid values.
-     *
-     * @param mixed $values
-     *
      * @dataProvider getStrongValidationValidValues
      */
     public function testStrongValidationValidValues($values): void
@@ -32,13 +26,9 @@ class NaiveNoHtmlValidatorTest extends TestCase
     }
 
     /**
-     * Test strong validation invalid values.
-     *
-     * @param mixed $values
-     *
      * @dataProvider getStrongValidationInvalidValues
      */
-    public function testStrongValidationInvalidValues($values): void
+    public function testStrongValidationInvalidValues(mixed $values): void
     {
         $constraint = new NaiveNoHtml();
         $constraint->strongValidation = true;
@@ -48,13 +38,9 @@ class NaiveNoHtmlValidatorTest extends TestCase
     }
 
     /**
-     * Test weak validation valid values.
-     *
-     * @param mixed $values
-     *
      * @dataProvider getWeakValidationValidValues
      */
-    public function testWeakValidationValidValues($values): void
+    public function testWeakValidationValidValues(mixed $values): void
     {
         $constraint = new NaiveNoHtml();
         $constraint->strongValidation = false;
@@ -64,13 +50,9 @@ class NaiveNoHtmlValidatorTest extends TestCase
     }
 
     /**
-     * Test weak validation invalid values.
-     *
-     * @param mixed $values
-     *
      * @dataProvider getWeakValidationInvalidValues
      */
-    public function testWeakValidationInvalidValues($values): void
+    public function testWeakValidationInvalidValues(mixed $values): void
     {
         $constraint = new NaiveNoHtml();
         $constraint->strongValidation = false;
@@ -79,11 +61,6 @@ class NaiveNoHtmlValidatorTest extends TestCase
         $validator->validate($values, $constraint);
     }
 
-    /**
-     * Strong validation valid values.
-     *
-     * @return array
-     */
     public function getStrongValidationValidValues(): array
     {
         return [
@@ -95,11 +72,6 @@ class NaiveNoHtmlValidatorTest extends TestCase
         ];
     }
 
-    /**
-     * Strong validation invalid values.
-     *
-     * @return array
-     */
     public function getStrongValidationInvalidValues(): array
     {
         return [
@@ -112,11 +84,6 @@ class NaiveNoHtmlValidatorTest extends TestCase
         ];
     }
 
-    /**
-     * Weak validation valid values.
-     *
-     * @return array
-     */
     public function getWeakValidationValidValues(): array
     {
         return [
@@ -131,11 +98,6 @@ class NaiveNoHtmlValidatorTest extends TestCase
         ];
     }
 
-    /**
-     * Weak validation invalid values.
-     *
-     * @return array
-     */
     public function getWeakValidationInvalidValues(): array
     {
         return [
@@ -145,14 +107,7 @@ class NaiveNoHtmlValidatorTest extends TestCase
         ];
     }
 
-    /**
-     * Configure validator.
-     *
-     * @param null $expectedMessage
-     *
-     * @return NaiveNoHtmlValidator
-     */
-    private function configureValidator($expectedMessage = null): NaiveNoHtmlValidator
+    private function configureValidator(?string $expectedMessage = null): NaiveNoHtmlValidator
     {
         $builder = $this->getMockBuilder(ConstraintViolationBuilder::class)
             ->disableOriginalConstructor()

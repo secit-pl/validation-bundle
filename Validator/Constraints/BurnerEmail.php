@@ -1,12 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SecIT\ValidationBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 
 /**
- * Class BurnerEmail.
- *
  * @Annotation
  * @Target({"PROPERTY", "METHOD", "ANNOTATION"})
  *
@@ -23,14 +23,20 @@ class BurnerEmail extends Constraint
         self::RELATED_PACKAGE_NOT_INSTALLED_ERROR => 'RELATED_PACKAGE_NOT_INSTALLED_ERROR',
     ];
 
-    /**
-     * @var string
-     */
-    public $message = 'Throw away email addresses (burner emails) are not allowed';
+    public string $message = 'Throw away email addresses (burner emails) are not allowed';
+    public string $relatedPackageNotInstalledMessage = 'You need to install the wesbos/burner-email-providers package to use the BurnerEmailValidator';
 
-    /**
-     * @var string
-     */
-    public $relatedPackageNotInstalledMessage = 'You need to install the wesbos/burner-email-providers package to use the BurnerEmailValidator';
+    public function __construct(
+        ?string $message = null,
+        ?string $relatedPackageNotInstalledMessage = null,
+        mixed $options = null,
+        array $groups = null,
+        mixed $payload = null,
+    ) {
+        $this->message = $message ?? $this->message;
+        $this->relatedPackageNotInstalledMessage = $relatedPackageNotInstalledMessage ?? $this->relatedPackageNotInstalledMessage;
+
+        parent::__construct($options, $groups, $payload);
+    }
 }
 

@@ -1,14 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SecIT\ValidationBundle\Validator\Constraints;
 
+use Symfony\Component\ExpressionLanguage\Expression as ExpressionObject;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Exception\LogicException;
 
 /**
- * Class NotBlankIf.
- *
  * @Annotation
  * @Target({"PROPERTY", "METHOD", "ANNOTATION"})
  *
@@ -23,29 +24,34 @@ class NotBlankIf extends NotBlank
         self::IS_BLANK_IF_ERROR => 'IS_BLANK_IF_ERROR',
     ];
 
-    public $expression;
-    public $values = [];
+    public string|ExpressionObject|null $expression = null;
+    public array $values = [];
 
-    public function __construct($options = null)
-    {
-        parent::__construct($options);
-
+    public function __construct(
+        string|ExpressionObject|null $expression = null,
+        array $values = [],
+        string $message = null,
+        bool $allowNull = null,
+        callable $normalizer = null,
+        array $groups = null,
+        mixed $payload = null,
+        array $options = null,
+    ) {
         if (!class_exists(ExpressionLanguage::class)) {
             throw new LogicException(sprintf('The "symfony/expression-language" component is required to use the "%s" constraint.', __CLASS__));
         }
+
+        $options['expression'] = $expression ?? $options['expression'];
+        $options['values'] = $values ?? $options['values'];
+
+        parent::__construct($options, $message, $allowNull, $normalizer, $groups, $payload);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefaultOption()
     {
         return 'expression';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getRequiredOptions()
     {
         return ['expression'];

@@ -10,35 +10,23 @@ use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
 /**
- * Class BurnerEmailValidatorTest.
- *
  * @author Tomasz Gemza
  */
 class BurnerEmailValidatorTest extends TestCase
 {
     /**
-     * Test valid values.
-     *
-     * @param mixed $values
-     *
      * @dataProvider getValidValues
      */
-    public function testValidValues($values): void
+    public function testValidValues(mixed $values): void
     {
-        $constraint = new BurnerEmail();
-
         $validator = $this->configureValidator();
-        $validator->validate($values, $constraint);
+        $validator->validate($values, new BurnerEmail());
     }
 
     /**
-     * Test invalid values.
-     *
-     * @param mixed $values
-     *
      * @dataProvider getInvalidValues
      */
-    public function testInvalidValues($values): void
+    public function testInvalidValues(mixed $values): void
     {
         $constraint = new BurnerEmail();
 
@@ -46,11 +34,6 @@ class BurnerEmailValidatorTest extends TestCase
         $validator->validate($values, $constraint);
     }
 
-    /**
-     * Invalid values.
-     *
-     * @return array
-     */
     public function getValidValues(): array
     {
         return [
@@ -62,11 +45,6 @@ class BurnerEmailValidatorTest extends TestCase
         ];
     }
 
-    /**
-     * Valid values.
-     *
-     * @return array
-     */
     public function getInvalidValues(): array
     {
         return [
@@ -76,14 +54,7 @@ class BurnerEmailValidatorTest extends TestCase
         ];
     }
 
-    /**
-     * Configure validator.
-     *
-     * @param null $expectedMessage
-     *
-     * @return BurnerEmailValidator
-     */
-    private function configureValidator($expectedMessage = null): BurnerEmailValidator
+    private function configureValidator(?string $expectedMessage = null): BurnerEmailValidator
     {
         $parameterBag = new ParameterBag();
         $parameterBag->set('kernel.project_dir', dirname(__DIR__, 3));

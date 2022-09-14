@@ -1,12 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SecIT\ValidationBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 
 /**
- * Class FileExtension.
- *
  * @Annotation
  * @Target({"PROPERTY", "METHOD", "ANNOTATION"})
  *
@@ -23,34 +23,31 @@ class FileExtension extends Constraint
         self::DISALLOWED_EXTENSION_ERROR => 'DISALLOWED_EXTENSION_ERROR',
     ];
 
-    /**
-     * @var array
-     */
-    public $validExtensions = [];
+    public array $validExtensions = [];
+    public array $disallowedExtensions = [];
+    public bool $matchCase = false;
+    public string $message = 'The extension of the file is invalid ({{ extension }}). Allowed extensions are {{ extensions }}.';
+    public string $disallowedMessage = 'The extension of the file is invalid ({{ extension }}). Disallowed extensions are {{ extensions }}.';
 
-    /**
-     * @var array
-     */
-    public $disallowedExtensions = [];
+    public function __construct(
+        ?array $validExtensions = null,
+        ?array $disallowedExtensions = null,
+        ?bool $matchCase = null,
+        ?string $message = null,
+        ?string $disallowedMessage = null,
+        mixed $options = null,
+        array $groups = null,
+        mixed $payload = null,
+    ) {
+        $this->validExtensions = $validExtensions ?? $this->validExtensions;
+        $this->disallowedExtensions = $disallowedExtensions ?? $this->disallowedExtensions;
+        $this->matchCase = $matchCase ?? $this->matchCase;
+        $this->message = $message ?? $this->message;
+        $this->disallowedMessage = $disallowedMessage ?? $this->disallowedMessage;
 
-    /**
-     * @var bool
-     */
-    public $matchCase = false;
+        parent::__construct($options, $groups, $payload);
+    }
 
-    /**
-     * @var string
-     */
-    public $message = 'The extension of the file is invalid ({{ extension }}). Allowed extensions are {{ extensions }}.';
-
-    /**
-     * @var string
-     */
-    public $disallowedMessage = 'The extension of the file is invalid ({{ extension }}). Disallowed extensions are {{ extensions }}.';
-
-    /**
-     * {@inheritdoc}
-     */
     public function getDefaultOption()
     {
         return 'validExtensions';
