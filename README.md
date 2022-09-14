@@ -1,6 +1,9 @@
 # Symfony Validation Bundle
 
-Additional validators set for Symfony 4.x, 5.x and 6.x.
+Additional validators set for Symfony 6.x.
+
+> The version 2.0 and above are only compatible with Symfony 6+ and PHP 8+. Previous versions support was dropped. If you'd like to use it with Symfony 4.x or 5.x you should use the version 1.8 which was the last compatible with Symfony 4.x and 5.x.
+
 
 ## Installation
 
@@ -24,9 +27,13 @@ use SecIT\ValidationBundle\Validator\Constraints as SecITAssert;
 
 // ...
 
-/**
- * @SecITAssert\NotBlankIf("this.isSuperUser")
- */
+#[SecITAssert\NotBlankIf("this.isSuperUser")]
+private ?string $email = null;
+
+public function isSuperUser(): bool
+{
+    return true;
+}
 ```
 
 Parameters
@@ -48,9 +55,8 @@ use SecIT\ValidationBundle\Validator\Constraints as SecITAssert;
 
 // ...
 
-/**
- * @SecITAssert\FileExtension({"jpg", "jpeg", "png"})
- */
+#[SecITAssert\FileExtension(["jpg", "jpeg", "png"])]
+private $file;
 ```
 
 
@@ -59,9 +65,8 @@ use SecIT\ValidationBundle\Validator\Constraints as SecITAssert;
 
 // ...
 
-/**
- * @SecITAssert\FileExtension(disallowedExtensions={"php", "exe", "com"})
- */
+#[SecITAssert\FileExtension(disallowedExtensions: ["jpg", "jpeg", "png"])]
+private $file;
 ```
 
 Parameters
@@ -80,15 +85,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 // ...
 
-/**
- * @Assert\Image(
- *      maxSize="2M",
- *      mimeTypes={"image/jpg", "image/jpeg", "image/png"}
- * )
- *
- * @SecITAssert\FileExtension({"jpg", "jpeg", "png"})
- */
- private $file;
+#[Assert\Image(maxSize: '2M', mimeTypes: ["image/jpg", "image/jpeg", "image/png"])]
+#[SecITAssert\FileExtension(validExtensions: ["jpg", "jpeg", "png"])]
+private $file;
 ```
 
 ### CollectionOfUniqueElements
@@ -107,10 +106,8 @@ use SecIT\ValidationBundle\Validator\Constraints as SecITAssert;
 
 // ...
 
-/**
- * @SecITAssert\CollectionOfUniqueElements()
- */
- private $collection;
+#[SecITAssert\CollectionOfUniqueElements()]
+private $collection;
 ```
 
 This validator can also be used to validate unique files upload.
@@ -130,9 +127,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class ExampleType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('files', CollectionType::class, [
@@ -156,10 +150,8 @@ use SecIT\ValidationBundle\Validator\Constraints as SecITAssert;
 
 // ...
 
-/**
- * @SecITAssert\AntiXss()
- */
- private $text;
+#[SecITAssert\AntiXss()]
+private $text;
 ```
 
 ### NaiveNoHtml
@@ -171,10 +163,8 @@ use SecIT\ValidationBundle\Validator\Constraints as SecITAssert;
 
 // ...
 
-/**
- * @SecITAssert\NaiveNoHtml()
- */
- private $text;
+#[SecITAssert\NaiveNoHtml()]
+private $text;
 ```
 
 Parameters
@@ -194,8 +184,6 @@ use SecIT\ValidationBundle\Validator\Constraints as SecITAssert;
 
 // ...
 
-/**
- * @SecITAssert\BurnerEmail()
- */
- private $email;
+#[SecITAssert\BurnerEmail()]
+private $email;
 ```
