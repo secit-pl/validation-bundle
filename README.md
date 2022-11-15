@@ -20,6 +20,13 @@ $ composer require secit-pl/validation-bundle
 This validator checks if value is not blank like a standard NotBlank Symfony validator, but also allows define 
 the condition when the NotBlank validation should be performed using Symfony Expression Language.
 
+
+> From Symfony 6.2 you can also use When validator.
+>
+> https://symfony.com/blog/new-in-symfony-6-2-conditional-constraints
+>
+> https://symfony.com/doc/6.2/reference/constraints/When.html
+
 Example usage
 
 ```php
@@ -46,15 +53,16 @@ Parameters
 
 ### FileExtension
 
->  From Symfony 6.2 you can also use the "extensions" option in File validator.
->  
+This validator checks if file has valid file extension.
+
+
+> From Symfony 6.2 you can also use the "extensions" option in File validator.
+>
 > https://symfony.com/blog/new-in-symfony-6-2-improved-file-validator
 >
 > https://symfony.com/doc/6.2/reference/constraints/File.html#extensions
 
 
-
-This validator checks if file has valid file extension.
 
 Example usage
 
