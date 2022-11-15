@@ -46,6 +46,14 @@ Parameters
 
 ### FileExtension
 
+>  From Symfony 6.2 you can also use the "extensions" option in File validator.
+>  
+> https://symfony.com/blog/new-in-symfony-6-2-improved-file-validator
+>
+> https://symfony.com/doc/6.2/reference/constraints/File.html#extensions
+
+
+
 This validator checks if file has valid file extension.
 
 Example usage
