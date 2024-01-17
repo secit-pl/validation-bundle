@@ -1,8 +1,15 @@
 # Symfony Validation Bundle
 
-Additional validators set for Symfony 6.x.
+Additional validators set for Symfony.
 
-> The version 2.0 and above are only compatible with Symfony 6+ and PHP 8+. Previous versions support was dropped. If you'd like to use it with Symfony 4.x or 5.x you should use the version 1.8 which was the last compatible with Symfony 4.x and 5.x.
+## Compatibility matrix
+
+
+| Bundle version | Maintained | Symfony versions | Min. PHP version |
+|----------------|------------|------------------|------------------|
+| 3.x            | Yes        | 7.x              | 8.2.0            |
+| 2.x            | No         | 6.x              | 8.0.0            |
+| 1.8            | No         | 5.x, 4.x         | 7.1.0            |
 
 
 ## Installation
