@@ -14,14 +14,12 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  */
 class BurnerEmailValidator extends ConstraintValidator
 {
-    private ParameterBagInterface $parameterBag;
-
-    public function __construct(ParameterBagInterface $parameterBag)
-    {
-        $this->parameterBag = $parameterBag;
+    public function __construct(
+        private readonly ParameterBagInterface $parameterBag,
+    ) {
     }
 
-    public function validate($value, Constraint $constraint)
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof BurnerEmail) {
             throw new UnexpectedTypeException($constraint, BurnerEmail::class);
@@ -54,9 +52,6 @@ class BurnerEmailValidator extends ConstraintValidator
         }
     }
 
-    /**
-     * Extract domain from an email address.
-     */
     private function getEmailDomain(string $email): ?string
     {
         if (!str_contains($email, '@')) {
@@ -66,9 +61,6 @@ class BurnerEmailValidator extends ConstraintValidator
         return trim(substr(strrchr($email, '@'), 1));
     }
 
-    /**
-     * Get burner email providers domains.
-     */
     private function getBurnerEmailDomains(): array
     {
         $vendorPath = $this->parameterBag->get('kernel.project_dir').DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR;

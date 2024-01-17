@@ -15,10 +15,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  */
 class FileExtensionValidator extends ConstraintValidator
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function validate($value, Constraint $constraint)
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof FileExtension) {
             throw new UnexpectedTypeException($constraint, FileExtension::class);
@@ -62,18 +59,18 @@ class FileExtensionValidator extends ConstraintValidator
             $disallowedExtensions = array_map('strtolower', $disallowedExtensions);
         }
 
-        if ($validExtensions && !in_array($extension, $validExtensions)) {
+        if ($validExtensions && !in_array($extension, $validExtensions, true)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ extension }}', $this->formatValue($extension))
-                ->setParameter('{{ extensions }}', $this->formatValues($constraint->validExtensions))
+                ->setParameter('{{ extensions }}', $this->formatValues($validExtensions))
                 ->setCode(FileExtension::INVALID_EXTENSION_ERROR)
                 ->addViolation();
         }
 
-        if ($disallowedExtensions && in_array($extension, $disallowedExtensions)) {
+        if ($disallowedExtensions && in_array($extension, $disallowedExtensions, true)) {
             $this->context->buildViolation($constraint->disallowedMessage)
                 ->setParameter('{{ extension }}', $this->formatValue($extension))
-                ->setParameter('{{ extensions }}', $this->formatValues($constraint->disallowedExtensions))
+                ->setParameter('{{ extensions }}', $this->formatValues($disallowedExtensions))
                 ->setCode(FileExtension::DISALLOWED_EXTENSION_ERROR)
                 ->addViolation();
         }

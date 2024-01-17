@@ -33,7 +33,7 @@ class AntiXssValidatorTest extends TestCase
         $validator->validate($values, $constraint);
     }
 
-    public function getValidValues(): array
+    public static function getValidValues(): array
     {
         return [
             [null],
@@ -46,7 +46,7 @@ class AntiXssValidatorTest extends TestCase
         ];
     }
 
-    public function getInvalidValues(): array
+    public static function getInvalidValues(): array
     {
         return [
             ['<script>alert(123);</script>'],
@@ -69,12 +69,12 @@ class AntiXssValidatorTest extends TestCase
     {
         $builder = $this->getMockBuilder(ConstraintViolationBuilder::class)
             ->disableOriginalConstructor()
-            ->setMethods(['addViolation'])
+            ->onlyMethods(['addViolation'])
             ->getMock();
 
         $context = $this->getMockBuilder(ExecutionContext::class)
             ->disableOriginalConstructor()
-            ->setMethods(['buildViolation'])
+            ->onlyMethods(['buildViolation'])
             ->getMock();
 
         if ($expectedMessage) {

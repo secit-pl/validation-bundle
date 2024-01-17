@@ -34,7 +34,7 @@ class BurnerEmailValidatorTest extends TestCase
         $validator->validate($values, $constraint);
     }
 
-    public function getValidValues(): array
+    public static function getValidValues(): array
     {
         return [
             [null],
@@ -45,7 +45,7 @@ class BurnerEmailValidatorTest extends TestCase
         ];
     }
 
-    public function getInvalidValues(): array
+    public static function getInvalidValues(): array
     {
         return [
             ['qwdqwdasd@10minutesmail.com'],
@@ -61,12 +61,12 @@ class BurnerEmailValidatorTest extends TestCase
 
         $builder = $this->getMockBuilder(ConstraintViolationBuilder::class)
             ->disableOriginalConstructor()
-            ->setMethods(['addViolation'])
+            ->onlyMethods(['addViolation'])
             ->getMock();
 
         $context = $this->getMockBuilder(ExecutionContext::class)
             ->disableOriginalConstructor()
-            ->setMethods(['buildViolation'])
+            ->onlyMethods(['buildViolation'])
             ->getMock();
 
         if ($expectedMessage) {

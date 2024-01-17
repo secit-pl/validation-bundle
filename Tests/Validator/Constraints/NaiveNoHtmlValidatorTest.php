@@ -61,7 +61,7 @@ class NaiveNoHtmlValidatorTest extends TestCase
         $validator->validate($values, $constraint);
     }
 
-    public function getStrongValidationValidValues(): array
+    public static function getStrongValidationValidValues(): array
     {
         return [
             [null],
@@ -72,7 +72,7 @@ class NaiveNoHtmlValidatorTest extends TestCase
         ];
     }
 
-    public function getStrongValidationInvalidValues(): array
+    public static function getStrongValidationInvalidValues(): array
     {
         return [
             ['<b>asd</b>'],
@@ -84,7 +84,7 @@ class NaiveNoHtmlValidatorTest extends TestCase
         ];
     }
 
-    public function getWeakValidationValidValues(): array
+    public static function getWeakValidationValidValues(): array
     {
         return [
             [null],
@@ -98,7 +98,7 @@ class NaiveNoHtmlValidatorTest extends TestCase
         ];
     }
 
-    public function getWeakValidationInvalidValues(): array
+    public static function getWeakValidationInvalidValues(): array
     {
         return [
             ['<b>asd</b>'],
@@ -111,12 +111,12 @@ class NaiveNoHtmlValidatorTest extends TestCase
     {
         $builder = $this->getMockBuilder(ConstraintViolationBuilder::class)
             ->disableOriginalConstructor()
-            ->setMethods(['addViolation'])
+            ->onlyMethods(['addViolation'])
             ->getMock();
 
         $context = $this->getMockBuilder(ExecutionContext::class)
             ->disableOriginalConstructor()
-            ->setMethods(['buildViolation'])
+            ->onlyMethods(['buildViolation'])
             ->getMock();
 
         if ($expectedMessage) {

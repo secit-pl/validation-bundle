@@ -46,7 +46,7 @@ class CollectionOfUniqueElementsTest extends TestCase
         $validator->validate($values, $constraint);
     }
 
-    public function getValidValues(): array
+    public static function getValidValues(): array
     {
         return [
             [[]],
@@ -62,7 +62,7 @@ class CollectionOfUniqueElementsTest extends TestCase
         ];
     }
 
-    public function getInvalidCollections(): array
+    public static function getInvalidCollections(): array
     {
         return [
             [''],
@@ -73,7 +73,7 @@ class CollectionOfUniqueElementsTest extends TestCase
         ];
     }
 
-    public function getInvalidValues(): array
+    public static function getInvalidValues(): array
     {
         return [
             [['aaa', 'bbb', 'aaa']],
@@ -91,12 +91,12 @@ class CollectionOfUniqueElementsTest extends TestCase
     {
         $builder = $this->getMockBuilder(ConstraintViolationBuilder::class)
             ->disableOriginalConstructor()
-            ->setMethods(['addViolation'])
+            ->onlyMethods(['addViolation'])
             ->getMock();
 
         $context = $this->getMockBuilder(ExecutionContext::class)
             ->disableOriginalConstructor()
-            ->setMethods(['buildViolation'])
+            ->onlyMethods(['buildViolation'])
             ->getMock();
 
         if ($expectedMessage) {

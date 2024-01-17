@@ -14,7 +14,7 @@ use voku\helper\AntiXSS as VokuAntiXss;
  */
 class AntiXssValidator extends ConstraintValidator
 {
-    public function validate($value, Constraint $constraint)
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof AntiXss) {
             throw new UnexpectedTypeException($constraint, AntiXss::class);

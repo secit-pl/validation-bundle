@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  */
 class CollectionOfUniqueElementsValidator extends ConstraintValidator
 {
-    public function validate($value, Constraint $constraint)
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof CollectionOfUniqueElements) {
             throw new UnexpectedTypeException($constraint, CollectionOfUniqueElements::class);

@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  */
 class NaiveNoHtmlValidator extends ConstraintValidator
 {
-    public function validate($value, Constraint $constraint)
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof NaiveNoHtml) {
             throw new UnexpectedTypeException($constraint, NaiveNoHtml::class);
@@ -24,7 +24,7 @@ class NaiveNoHtmlValidator extends ConstraintValidator
         }
 
         if ($constraint->strongValidation) {
-            $probablyHtml = false !== strpos($value, '<');
+            $probablyHtml = str_contains($value, '<');
         } else {
             $probablyHtml = preg_match('/<[^<]+>/msU', $value);
         }

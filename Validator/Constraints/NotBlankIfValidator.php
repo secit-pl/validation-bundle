@@ -14,14 +14,12 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  */
 class NotBlankIfValidator extends NotBlankValidator
 {
-    private ExpressionLanguage|null $expressionLanguage;
-
-    public function __construct(ExpressionLanguage $expressionLanguage = null)
-    {
-        $this->expressionLanguage = $expressionLanguage;
+    public function __construct(
+        private ?ExpressionLanguage $expressionLanguage = null
+    ) {
     }
 
-    public function validate($value, Constraint $constraint)
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof NotBlankIf) {
             throw new UnexpectedTypeException($constraint, NotBlankIf::class);

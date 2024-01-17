@@ -21,7 +21,7 @@ class FileExtensionValidatorTest extends TestCase
     public function testValidValues(array $validExtensions, $file, ?bool $matchCase = false): void
     {
         $validator = $this->configureValidator();
-        $validator->validate($file, new FileExtension($validExtensions, null, $matchCase));
+        $validator->validate($file, new FileExtension($validExtensions, [], $matchCase));
     }
 
     /**
@@ -29,18 +29,18 @@ class FileExtensionValidatorTest extends TestCase
      */
     public function testInvalidValues(array $validExtensions, mixed $file, ?bool $matchCase = false): void
     {
-        $constraint = new FileExtension($validExtensions, null, $matchCase);
+        $constraint = new FileExtension($validExtensions, [], $matchCase);
 
         $validator = $this->configureValidator($constraint->message);
         $validator->validate($file, $constraint);
     }
 
     /**
-     * @dataProvider getInvalidValues
+     * @dataProvider getValidValues
      */
     public function testAllowedValues(array $validExtensions, mixed $file, ?bool $matchCase = false): void
     {
-        $constraint = new FileExtension($validExtensions, null, $matchCase);
+        $constraint = new FileExtension($validExtensions, [], $matchCase);
 
         $validator = $this->configureValidator();
         $validator->validate($file, $constraint);
@@ -51,13 +51,13 @@ class FileExtensionValidatorTest extends TestCase
      */
     public function testDisallowedValues(array $disallowedExtensions, mixed $file, ?bool $matchCase = false): void
     {
-        $constraint = new FileExtension(null, $disallowedExtensions, $matchCase);
+        $constraint = new FileExtension([], $disallowedExtensions, $matchCase);
 
         $validator = $this->configureValidator($constraint->disallowedMessage);
         $validator->validate($file, $constraint);
     }
 
-    public function getValidValues(): array
+    public static function getValidValues(): array
     {
         $uploadedFile = new UploadedFile(__FILE__, 'test.pdf', null, null, true);
         $notUploadedFile = new UploadedFile(__FILE__, 'test.pdf', null, UPLOAD_ERR_FORM_SIZE, true);
@@ -84,7 +84,7 @@ class FileExtensionValidatorTest extends TestCase
         ];
     }
 
-    public function getInvalidValues(): array
+    public static function getInvalidValues(): array
     {
         $uploadedFile = new UploadedFile(__FILE__, 'test.pdf', null, null, true);
         $notUploadedFile = new UploadedFile(__FILE__, 'test.pdf', null, UPLOAD_ERR_FORM_SIZE, true);
@@ -115,12 +115,12 @@ class FileExtensionValidatorTest extends TestCase
     {
         $builder = $this->getMockBuilder(ConstraintViolationBuilder::class)
             ->disableOriginalConstructor()
-            ->setMethods(['addViolation'])
+            ->onlyMethods(['addViolation'])
             ->getMock();
 
         $context = $this->getMockBuilder(ExecutionContext::class)
             ->disableOriginalConstructor()
-            ->setMethods(['buildViolation'])
+            ->onlyMethods(['buildViolation'])
             ->getMock();
 
         if ($expectedMessage) {

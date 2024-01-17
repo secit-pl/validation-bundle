@@ -10,9 +10,6 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Exception\LogicException;
 
 /**
- * @Annotation
- * @Target({"PROPERTY", "METHOD", "ANNOTATION"})
- *
  * @author Tomasz Gemza
  */
 #[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
@@ -20,17 +17,14 @@ class NotBlankIf extends NotBlank
 {
     public const IS_BLANK_IF_ERROR = '199bb09f-0732-42f4-8bcf-f01ff89526c0';
 
-    protected static $errorNames = [
+    protected static array $errorNames = [
         self::IS_BLANK_IF_ERROR => 'IS_BLANK_IF_ERROR',
     ];
 
-    public string|ExpressionObject|null $expression = null;
-    public array $values = [];
-
     public function __construct(
-        string|ExpressionObject|null $expression = null,
-        array $values = [],
-        string $message = null,
+        public string|ExpressionObject|null $expression = null,
+        public array $values = [],
+        ?string $message = null,
         bool $allowNull = null,
         callable $normalizer = null,
         array $groups = null,
@@ -47,12 +41,12 @@ class NotBlankIf extends NotBlank
         parent::__construct($options, $message, $allowNull, $normalizer, $groups, $payload);
     }
 
-    public function getDefaultOption()
+    public function getDefaultOption(): string
     {
         return 'expression';
     }
 
-    public function getRequiredOptions()
+    public function getRequiredOptions(): array
     {
         return ['expression'];
     }

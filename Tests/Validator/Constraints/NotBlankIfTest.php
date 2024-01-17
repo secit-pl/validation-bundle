@@ -46,7 +46,7 @@ class NotBlankIfTest extends TestCase
         $validator->validate($value, $constraint);
     }
 
-    public function getValidValues(): array
+    public static function getValidValues(): array
     {
         return [
             ['this.boolValue', 'test'],
@@ -56,7 +56,7 @@ class NotBlankIfTest extends TestCase
         ];
     }
 
-    public function getInvalidValues(): array
+    public static function getInvalidValues(): array
     {
         return [
             ['this.boolValue', ''],
@@ -69,13 +69,13 @@ class NotBlankIfTest extends TestCase
     {
         $builder = $this->getMockBuilder(ConstraintViolationBuilder::class)
             ->disableOriginalConstructor()
-            ->setMethods(['addViolation'])
+            ->onlyMethods(['addViolation'])
             ->getMock();
 
         $context = $this->getMockBuilder(ExecutionContext::class)
             ->disableOriginalConstructor()
-            ->setMethods(['buildViolation'])
-            ->setMethods(['getObject'])
+            ->onlyMethods(['buildViolation'])
+            ->onlyMethods(['getObject'])
             ->getMock();
 
         $context->expects($this->any())
