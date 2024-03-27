@@ -194,7 +194,7 @@ Parameters
 
 | Parameter | Type | Default | Description |
 |---|---|---|---| 
-| strongValidation | bool | true (recommended) | Enable/disable strong validation. Disable if you'd like to allow strings with unclosed tags such as as "I <3 You". |
+| strongValidation | bool | true (recommended) | Enable/disable strong validation. Disable if you'd like to allow strings with unclosed tags such as "I <3 You". |
 
 ### BurnerEmail
 
@@ -209,4 +209,19 @@ use SecIT\ValidationBundle\Validator\Constraints as SecITAssert;
 
 #[SecITAssert\BurnerEmail()]
 private $email;
+```
+
+### ClamAvScanFile
+
+Scans file for infection using ClamAV.
+The check is made using the bundle [sineflow/clamav](https://github.com/secit-pl/clamav).
+You need to install and configure this package manually if you'd like to use this validator.
+
+```php
+use SecIT\ValidationBundle\Validator\Constraints as SecITAssert;
+
+// ...
+
+#[SecITAssert\ClamAvScanFile()]
+private \Symfony\Component\HttpFoundation\File\File $file;
 ```

@@ -25,7 +25,8 @@
         "doctrine/orm": "^2.6"
     },
     "suggest": {
-        "wesbos/burner-email-providers": "Needed for BurnerEmailValidator"
+        "wesbos/burner-email-providers": "Required by BurnerEmailValidator",
+        "sineflow/clamav": "Required by ClamAvScanFileValidator"
     },
     "autoload": {
         "psr-4": { "SecIT\\ValidationBundle\\": "" }

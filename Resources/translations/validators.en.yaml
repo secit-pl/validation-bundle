@@ -6,3 +6,5 @@
 'HTML is not allowed': 'HTML is not allowed'
 'Throw away email addresses (burner emails) are not allowed': 'Throw away email addresses (burner emails) are not allowed'
 'You need to install the wesbos/burner-email-providers package to use the BurnerEmailValidator': 'You need to install the wesbos/burner-email-providers package to use the BurnerEmailValidator'
+'The file is infected with {{ infectionName }}.': 'The file is infected with {{ infectionName }}.'
+'Scan failed with message: {{ message }}.': 'Scan failed with message: {{ message }}.'
