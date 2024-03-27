@@ -6,3 +6,7 @@ services:
 
     SecIT\ValidationBundle\Validator\Constraints\BurnerEmailValidator:
         class: SecIT\ValidationBundle\Validator\Constraints\BurnerEmailValidator
+
+    SecIT\ValidationBundle\Validator\Constraints\ClamAvScanFileValidator:
+        class: SecIT\ValidationBundle\Validator\Constraints\ClamAvScanFileValidator
+        lazy: true
