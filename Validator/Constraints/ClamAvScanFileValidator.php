@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SecIT\ValidationBundle\Validator\Constraints;
 
 use Sineflow\ClamAV\Scanner;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\File\File as HttpFile;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -15,9 +16,11 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  */
 class ClamAvScanFileValidator extends ConstraintValidator
 {
-    public function __construct(
-        private readonly Scanner $scanner,
-    ) {
+    private ?Scanner $scanner;
+
+    public function __construct(ContainerInterface $container)
+    {
+        $this->scanner = $container->get('sineflow.clamav.scanner', ContainerInterface::NULL_ON_INVALID_REFERENCE);
     }
 
     public function validate(mixed $value, Constraint $constraint): void
@@ -26,7 +29,7 @@ class ClamAvScanFileValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, ClamAvScanFile::class);
         }
 
-        if (!$value instanceof HttpFile) {
+        if (null === $this->scanner || !$value instanceof HttpFile) {
             return;
         }
 

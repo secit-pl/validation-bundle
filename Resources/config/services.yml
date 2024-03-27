@@ -9,4 +9,5 @@ services:
 
     SecIT\ValidationBundle\Validator\Constraints\ClamAvScanFileValidator:
         class: SecIT\ValidationBundle\Validator\Constraints\ClamAvScanFileValidator
-        lazy: true
+        arguments:
+            - '@service_container'
