@@ -33,8 +33,13 @@ class ClamAvScanFileValidator extends ConstraintValidator
             return;
         }
 
+        $filePath = $value->getPathname();
+        $baseFilePermissions = fileperms($filePath);
+
         try {
-            $scannedFile = $this->scanner->scan($value->getPathname());
+            chmod($filePath, $baseFilePermissions | 0644);
+
+            $scannedFile = $this->scanner->scan($filePath);
             if (!$scannedFile->isClean()) {
                 $this->context->buildViolation($constraint->message)
                     ->setParameter('{{ infectionName }}', $scannedFile->getVirusName())
@@ -48,6 +53,8 @@ class ClamAvScanFileValidator extends ConstraintValidator
                     ->setCode(ClamAvScanFile::SCAN_FAILED_ERROR)
                     ->addViolation();
             }
+        } finally {
+            chmod($filePath, $baseFilePermissions);
         }
     }
 }
