@@ -217,6 +217,8 @@ Scans file for infection using ClamAV.
 The check is made using the bundle [sineflow/clamav](https://github.com/secit-pl/clamav).
 You need to install and configure this package manually if you'd like to use this validator.
 
+You can find test files here https://github.com/fire1ce/eicar-standard-antivirus-test-files/tree/master.
+
 > The validator will not work if the PrivateTmp is set to true because the temp file path in php will differ from the real system temp file path so the clamscan will not find the file to scan!
 
 ```php
