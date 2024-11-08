@@ -117,6 +117,13 @@ private $file;
 
 Checks if collection contains only unique elements.
 
+
+> From Symfony 6.0 you can also use the Unique validator.
+>
+> https://symfony.com/doc/current/reference/constraints/Unique.html
+
+
+
 Parameters
 
 | Parameter | Type | Default | Description |
@@ -232,7 +239,7 @@ private \Symfony\Component\HttpFoundation\File\File $file;
 
 ## Want to support this bundle?
 
-Consider using our [random code generator](https://codito.io/) service at [codito.io](https://codito.io/).
+Consider using our [random code generator](https://codito.io/free-random-code-generator/) service at [codito.io](https://codito.io/).
 
 With [codito.io](https://codito.io/) you can generate up to 250,000 codes in the format of your choice for free. You can use the generated codes for purposes such as promotional codes (which you can, for example, print on the inside of packaging), serial numbers, one-time or multi-use passwords, lottery coupons, discount codes, vouchers, random strings and much more - for more use cases see our [examples](https://codito.io/free-random-code-generator/examples). If 250,000 codes are not enough for you, you can use our [commercial code generation service](https://codito.io/commercial-code-generator/).
 
