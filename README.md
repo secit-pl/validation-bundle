@@ -1,13 +1,14 @@
 # Symfony Validation Bundle
 
-Additional validators set for Symfony.
+Additional validators for Symfony.
 
 ## Compatibility matrix
 
 
 | Bundle version | Maintained | Symfony versions | Min. PHP version |
 |----------------|------------|------------------|------------------|
-| 3.x            | Yes        | 7.x              | 8.2.0            |
+| 4.x            | Yes        | 8.x, 7.x         | 8.4.0            |
+| 3.x            | No         | 7.x              | 8.2.0            |
 | 2.x            | No         | 6.x              | 8.0.0            |
 | 1.8            | No         | 5.x, 4.x         | 7.1.0            |
 

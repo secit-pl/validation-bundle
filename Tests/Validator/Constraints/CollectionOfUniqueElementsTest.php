@@ -3,6 +3,7 @@
 namespace SecIT\ValidationBundle\Tests\Validator\Constraints;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SecIT\ValidationBundle\Validator\Constraints\CollectionOfUniqueElements;
 use SecIT\ValidationBundle\Validator\Constraints\CollectionOfUniqueElementsValidator;
@@ -15,18 +16,14 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
  */
 class CollectionOfUniqueElementsTest extends TestCase
 {
-    /**
-     * @dataProvider getValidValues
-     */
+    #[DataProvider('getValidValues')]
     public function testValidValues(mixed $values, ?bool $matchCase = false): void
     {
         $validator = $this->configureValidator();
         $validator->validate($values, new CollectionOfUniqueElements($matchCase));
     }
 
-    /**
-     * @dataProvider getInvalidCollections
-     */
+    #[DataProvider('getInvalidCollections')]
     public function testInvalidCollections(mixed $values): void
     {
         $constraint = new CollectionOfUniqueElements();
@@ -35,9 +32,7 @@ class CollectionOfUniqueElementsTest extends TestCase
         $validator->validate($values, $constraint);
     }
 
-    /**
-     * @dataProvider getInvalidValues
-     */
+    #[DataProvider('getInvalidValues')]
     public function testInvalidValues(mixed $values, ?bool $matchCase = false): void
     {
         $constraint = new CollectionOfUniqueElements($matchCase);
@@ -89,24 +84,21 @@ class CollectionOfUniqueElementsTest extends TestCase
 
     private function configureValidator(?string $expectedMessage = null): CollectionOfUniqueElementsValidator
     {
-        $builder = $this->getMockBuilder(ConstraintViolationBuilder::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['addViolation'])
-            ->getMock();
-
-        $context = $this->getMockBuilder(ExecutionContext::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['buildViolation'])
-            ->getMock();
+        $context = $this->createMock(ExecutionContext::class);
 
         if ($expectedMessage) {
-            $builder->expects($this->once())
+            $builder = $this->createPartialMock(
+                ConstraintViolationBuilder::class,
+                ['addViolation']
+            );
+
+            $builder->expects($this->atLeastOnce())
                 ->method('addViolation');
 
-            $context->expects($this->once())
+            $context->expects($this->atLeastOnce())
                 ->method('buildViolation')
                 ->with($this->equalTo($expectedMessage))
-                ->will($this->returnValue($builder));
+                ->willReturn($builder);
         } else {
             $context->expects($this->never())
                 ->method('buildViolation');

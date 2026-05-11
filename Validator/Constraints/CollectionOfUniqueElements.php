@@ -26,7 +26,7 @@ class CollectionOfUniqueElements extends Constraint
         public string $message = 'The collection contains duplicated elements ({{ duplicates }})',
         public string $invalidCollectionMessage = 'The value is not a valid collection',
         mixed $options = null,
-        array $groups = null,
+        ?array $groups = null,
         mixed $payload = null,
     ) {
         parent::__construct($options, $groups, $payload);

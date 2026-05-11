@@ -22,7 +22,7 @@ class NaiveNoHtml extends Constraint
         public bool $strongValidation = true,
         public string $message = 'HTML is not allowed',
         mixed $options = null,
-        array $groups = null,
+        ?array $groups = null,
         mixed $payload = null,
     ) {
         parent::__construct($options, $groups, $payload);

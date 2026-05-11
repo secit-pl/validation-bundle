@@ -21,7 +21,7 @@ class AntiXss extends Constraint
     public function __construct(
         public string $message = 'XSS attack detected',
         mixed $options = null,
-        array $groups = null,
+        ?array $groups = null,
         mixed $payload = null,
     ) {
         parent::__construct($options, $groups, $payload);

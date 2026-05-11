@@ -2,6 +2,7 @@
 
 namespace SecIT\ValidationBundle\Tests\Validator\Constraints;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SecIT\ValidationBundle\Validator\Constraints\NaiveNoHtml;
 use SecIT\ValidationBundle\Validator\Constraints\NaiveNoHtmlValidator;
@@ -13,9 +14,7 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
  */
 class NaiveNoHtmlValidatorTest extends TestCase
 {
-    /**
-     * @dataProvider getStrongValidationValidValues
-     */
+    #[DataProvider('getStrongValidationValidValues')]
     public function testStrongValidationValidValues($values): void
     {
         $constraint = new NaiveNoHtml();
@@ -25,9 +24,7 @@ class NaiveNoHtmlValidatorTest extends TestCase
         $validator->validate($values, $constraint);
     }
 
-    /**
-     * @dataProvider getStrongValidationInvalidValues
-     */
+    #[DataProvider('getStrongValidationInvalidValues')]
     public function testStrongValidationInvalidValues(mixed $values): void
     {
         $constraint = new NaiveNoHtml();
@@ -37,9 +34,7 @@ class NaiveNoHtmlValidatorTest extends TestCase
         $validator->validate($values, $constraint);
     }
 
-    /**
-     * @dataProvider getWeakValidationValidValues
-     */
+    #[DataProvider('getWeakValidationValidValues')]
     public function testWeakValidationValidValues(mixed $values): void
     {
         $constraint = new NaiveNoHtml();
@@ -49,9 +44,7 @@ class NaiveNoHtmlValidatorTest extends TestCase
         $validator->validate($values, $constraint);
     }
 
-    /**
-     * @dataProvider getWeakValidationInvalidValues
-     */
+    #[DataProvider('getWeakValidationInvalidValues')]
     public function testWeakValidationInvalidValues(mixed $values): void
     {
         $constraint = new NaiveNoHtml();
@@ -109,24 +102,21 @@ class NaiveNoHtmlValidatorTest extends TestCase
 
     private function configureValidator(?string $expectedMessage = null): NaiveNoHtmlValidator
     {
-        $builder = $this->getMockBuilder(ConstraintViolationBuilder::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['addViolation'])
-            ->getMock();
-
-        $context = $this->getMockBuilder(ExecutionContext::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['buildViolation'])
-            ->getMock();
+        $context = $this->createMock(ExecutionContext::class);
 
         if ($expectedMessage) {
+            $builder = $this->createPartialMock(
+                ConstraintViolationBuilder::class,
+                ['addViolation']
+            );
+
             $builder->expects($this->once())
                 ->method('addViolation');
 
             $context->expects($this->once())
                 ->method('buildViolation')
                 ->with($this->equalTo($expectedMessage))
-                ->will($this->returnValue($builder));
+                ->willReturn($builder);
         } else {
             $context->expects($this->never())
                 ->method('buildViolation');

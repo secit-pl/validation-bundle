@@ -25,6 +25,8 @@ class CollectionOfUniqueElementsValidator extends ConstraintValidator
             $this->context->buildViolation($constraint->invalidCollectionMessage)
                 ->setCode(CollectionOfUniqueElements::INVALID_COLLECTION_ERROR)
                 ->addViolation();
+
+            return;
         }
 
         if ($value instanceof Collection) {

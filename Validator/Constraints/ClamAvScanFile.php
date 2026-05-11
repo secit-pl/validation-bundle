@@ -25,7 +25,7 @@ class ClamAvScanFile extends Constraint
         public string $message = 'The file is infected with {{ infectionName }}.',
         public string $scanFailedMessage = 'Scan failed with message: {{ message }}.',
         mixed $options = null,
-        array $groups = null,
+        ?array $groups = null,
         mixed $payload = null,
     ) {
         parent::__construct($options, $groups, $payload);

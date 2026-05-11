@@ -2,6 +2,7 @@
 
 namespace SecIT\ValidationBundle\Tests\Validator\Constraints;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SecIT\ValidationBundle\Validator\Constraints\FileExtension;
 use SecIT\ValidationBundle\Validator\Constraints\FileExtensionValidator;
@@ -15,18 +16,14 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
  */
 class FileExtensionValidatorTest extends TestCase
 {
-    /**
-     * @dataProvider getValidValues
-     */
+    #[DataProvider('getValidValues')]
     public function testValidValues(array $validExtensions, $file, ?bool $matchCase = false): void
     {
         $validator = $this->configureValidator();
         $validator->validate($file, new FileExtension($validExtensions, [], $matchCase));
     }
 
-    /**
-     * @dataProvider getInvalidValues
-     */
+    #[DataProvider('getInvalidValues')]
     public function testInvalidValues(array $validExtensions, mixed $file, ?bool $matchCase = false): void
     {
         $constraint = new FileExtension($validExtensions, [], $matchCase);
@@ -35,9 +32,7 @@ class FileExtensionValidatorTest extends TestCase
         $validator->validate($file, $constraint);
     }
 
-    /**
-     * @dataProvider getValidValues
-     */
+    #[DataProvider('getValidValues')]
     public function testAllowedValues(array $validExtensions, mixed $file, ?bool $matchCase = false): void
     {
         $constraint = new FileExtension($validExtensions, [], $matchCase);
@@ -46,9 +41,7 @@ class FileExtensionValidatorTest extends TestCase
         $validator->validate($file, $constraint);
     }
 
-    /**
-     * @dataProvider getValidValues
-     */
+    #[DataProvider('getValidValues')]
     public function testDisallowedValues(array $disallowedExtensions, mixed $file, ?bool $matchCase = false): void
     {
         $constraint = new FileExtension([], $disallowedExtensions, $matchCase);
@@ -113,24 +106,21 @@ class FileExtensionValidatorTest extends TestCase
 
     private function configureValidator(?string $expectedMessage = null): FileExtensionValidator
     {
-        $builder = $this->getMockBuilder(ConstraintViolationBuilder::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['addViolation'])
-            ->getMock();
-
-        $context = $this->getMockBuilder(ExecutionContext::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['buildViolation'])
-            ->getMock();
+        $context = $this->createMock(ExecutionContext::class);
 
         if ($expectedMessage) {
+            $builder = $this->createPartialMock(
+                ConstraintViolationBuilder::class,
+                ['addViolation']
+            );
+
             $builder->expects($this->atLeastOnce())
                 ->method('addViolation');
 
             $context->expects($this->atLeastOnce())
                 ->method('buildViolation')
                 ->with($this->equalTo($expectedMessage))
-                ->will($this->returnValue($builder));
+                ->willReturn($builder);
         } else {
             $context->expects($this->never())
                 ->method('buildViolation');

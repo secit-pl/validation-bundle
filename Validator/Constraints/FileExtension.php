@@ -27,7 +27,7 @@ class FileExtension extends Constraint
         public string $message = 'The extension of the file is invalid ({{ extension }}). Allowed extensions are {{ extensions }}.',
         public string $disallowedMessage = 'The extension of the file is invalid ({{ extension }}). Disallowed extensions are {{ extensions }}.',
         mixed $options = null,
-        array $groups = null,
+        ?array $groups = null,
         mixed $payload = null,
     ) {
         parent::__construct($options, $groups, $payload);

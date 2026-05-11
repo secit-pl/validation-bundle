@@ -2,6 +2,7 @@
 
 namespace SecIT\ValidationBundle\Tests\Validator\Constraints;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SecIT\ValidationBundle\Validator\Constraints\AntiXss;
 use SecIT\ValidationBundle\Validator\Constraints\AntiXssValidator;
@@ -13,18 +14,14 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
  */
 class AntiXssValidatorTest extends TestCase
 {
-    /**
-     * @dataProvider getValidValues
-     */
+    #[DataProvider('getValidValues')]
     public function testValidValues(mixed $values): void
     {
         $validator = $this->configureValidator();
         $validator->validate($values, new AntiXss());
     }
 
-    /**
-     * @dataProvider getInvalidValues
-     */
+    #[DataProvider('getInvalidValues')]
     public function testInvalidValues(mixed $values): void
     {
         $constraint = new AntiXss();
@@ -67,24 +64,21 @@ class AntiXssValidatorTest extends TestCase
 
     private function configureValidator(?string $expectedMessage = null): AntiXssValidator
     {
-        $builder = $this->getMockBuilder(ConstraintViolationBuilder::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['addViolation'])
-            ->getMock();
-
-        $context = $this->getMockBuilder(ExecutionContext::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['buildViolation'])
-            ->getMock();
+        $context = $this->createMock(ExecutionContext::class);
 
         if ($expectedMessage) {
+            $builder = $this->createPartialMock(
+                ConstraintViolationBuilder::class,
+                ['addViolation']
+            );
+
             $builder->expects($this->once())
                 ->method('addViolation');
 
             $context->expects($this->once())
                 ->method('buildViolation')
                 ->with($this->equalTo($expectedMessage))
-                ->will($this->returnValue($builder));
+                ->willReturn($builder);
         } else {
             $context->expects($this->never())
                 ->method('buildViolation');

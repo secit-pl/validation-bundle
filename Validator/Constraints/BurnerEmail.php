@@ -24,7 +24,7 @@ class BurnerEmail extends Constraint
         public string $message = 'Throw away email addresses (burner emails) are not allowed',
         public string $relatedPackageNotInstalledMessage = 'You need to install the wesbos/burner-email-providers package to use the BurnerEmailValidator',
         mixed $options = null,
-        array $groups = null,
+        ?array $groups = null,
         mixed $payload = null,
     ) {
         parent::__construct($options, $groups, $payload);
