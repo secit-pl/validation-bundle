@@ -22,42 +22,6 @@ $ composer require secit-pl/validation-bundle
 
 ## Validators
 
-### NotBlankIf
-
-This validator checks if value is not blank like a standard NotBlank Symfony validator, but also allows define 
-the condition when the NotBlank validation should be performed using Symfony Expression Language.
-
-
-> From Symfony 6.2 you can also use When validator.
->
-> https://symfony.com/blog/new-in-symfony-6-2-conditional-constraints
->
-> https://symfony.com/doc/6.2/reference/constraints/When.html
-
-Example usage
-
-```php
-use SecIT\ValidationBundle\Validator\Constraints as SecITAssert;
-
-// ...
-
-#[SecITAssert\NotBlankIf("this.isSuperUser")]
-private ?string $email = null;
-
-public function isSuperUser(): bool
-{
-    return true;
-}
-```
-
-Parameters
-
-| Parameter | Type | Default | Description |
-|---|---|---|---| 
-| expression | string | empty array | The expression that will be evaluated. If the expression evaluates to a false value (using ==, not ===), not blank validation won't be performed) |
-| values | array | empty array | The values of the custom variables used in the expression. Values can be of any type (numeric, boolean, strings, null, etc.) |
-
-
 ### FileExtension
 
 This validator checks if file has valid file extension.
